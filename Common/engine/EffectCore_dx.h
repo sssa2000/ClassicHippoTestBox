@@ -2,7 +2,7 @@
 #define __EFFECTCORE_H__
 //#include "IPrerequisites.h"
 
-#include "RenderCore.h"
+#include "engine_interface.h"
 
 namespace H3DI {
 	class ISoundSource;

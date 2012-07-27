@@ -18,21 +18,22 @@ namespace H3DI
 {
 	class IActor;
 	class IModel;
-	class ISpecialEffect;
 	class INewShader;
 	class ISkeletonModel;
 	class IAvatarSkeletonModel;
+	class ISkeletonModel;
 	class IPrePassLight;
 	class ILevel;
 }
+class ISpecialEffect;
 
 typedef std::vector<H3DI::IActor*> IActorCon;
-typedef IActorCon::iterator ActorConItr;
+typedef IActorCon::iterator IActorConItr;
 
 typedef std::vector<H3DI::IModel*> IModelCon;
 typedef IModelCon::iterator IModelConItr;
 
-typedef std::vector<H3DI::ISpecialEffect*> ISpecialEffectCon;
+typedef std::vector<ISpecialEffect*> ISpecialEffectCon;
 typedef ISpecialEffectCon::iterator ISpecialEffectConItr;
 
 typedef std::vector<H3DI::INewShader*> INewShaderCon;
@@ -54,30 +55,30 @@ public:
 	HippoScene();
 	~HippoScene();
 
-	H3DI::IActor*				CreateActor();
+	H3DI::IActor*				CreateActor(bool bmale);
 	H3DI::IModel*				CreateDml(const char* fn);
-	H3DI::ISpecialEffect*		CreateSpe(const char* fn);
+	ISpecialEffect*		CreateSpe(const char* fn);
 	H3DI::INewShader*			CreateShader(const char* fn,const char* matn);
 	H3DI::ISkeletonModel*		CreateChr(const char* fn);
-	H3DI::IAvatarSkeletonModel* CreatePet();
+	H3DI::IAvatarSkeletonModel* CreatePet(bool bmale);
 	H3DI::IPrePassLight*		CreateDirLight();
 	H3DI::IPrePassLight*		CreateSpotLight();
 	H3DI::IPrePassLight*		CreatePointLight();
 
 	bool DelActor(H3DI::IActor* p);
 	bool DelDml(H3DI::IModel* p);
-	bool DelSpe(H3DI::ISpecialEffect* p);
+	bool DelSpe(ISpecialEffect* p);
 	bool DelShader(H3DI::INewShader* p);
 	bool DelChr(H3DI::ISkeletonModel* p);
 	bool DelPet(H3DI::IAvatarSkeletonModel* p);
 	bool DelLight(H3DI::IPrePassLight* p);
 
-	void RenderScene();
+	void PushSceneToRender(float timeMs);
 	void UpdateScene(float timeMs);
 
 	bool LoadSceneFromFile(const char* xmlfile);
 
-
+	H3DI::ILevel* GetLevel(){return m_pLevel;}
 protected:
 	
 	//¸÷ÀàÈÝÆ÷

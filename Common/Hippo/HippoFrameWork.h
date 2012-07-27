@@ -26,6 +26,8 @@ namespace H3DI
 	class IRender;
 }
 class Hippo_InputManager;
+class ISpecialEffectManager;
+class HippoScene;
 
 typedef int    (*CALLBACK_FRAMEUPDATE)(DWORD fElapsedTimeInMs, void* pUserContext );
 typedef LRESULT (*CALLBACK_MSGPROC)( HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam, void* pUserContext );
@@ -53,4 +55,6 @@ int Hippo_DrawHelpGrid();
 
 //!some get fun
 H3DI::IRender* Hippo_GetIRender();
+ISpecialEffectManager* Hippo_GetSpeManager();
 Hippo_InputManager* GetInputManager();
+HippoScene* Hippo_GetScene();

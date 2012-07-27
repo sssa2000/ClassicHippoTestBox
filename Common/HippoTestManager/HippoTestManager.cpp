@@ -35,14 +35,26 @@ int HippoTestManager::RunAllTest()
 	{
 		HippoTestCaseBase* testcase = m_all_testcase.at(m_TestCaseIdx);
 		m_pCurrentTestCase = testcase;
-
-		bool bFinish=testcase->Run();
-		if (bFinish)
+		CASE_STATE s=m_pCurrentTestCase->GetState();
+		if(s==CASE_INIT)
+		{
+			m_pCurrentTestCase->InitScene();
+		}
+		else if (s==CASE_BEFORE_EXECING)
+		{
+			m_pCurrentTestCase->CleanUpScene();
+		}
+		else if (s==CASE_EXECING)
+		{
+			m_pCurrentTestCase->Render();
+			break;
+		}
+		else if (s==CASE_END_EXECING)
 		{
 			//next
 			++m_TestCaseIdx;
-
 		}
+
 	}
 
 	return 1;

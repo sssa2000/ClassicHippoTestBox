@@ -14,26 +14,41 @@
 #include <vector>
 #include <string>
 
-
+enum CASE_STATE
+{
+	CASE_INIT=0, //初始化
+	CASE_BEFORE_EXECING,		//
+	CASE_EXECING,
+	CASE_END_EXECING,
+};
 //用例基类
 class HippoTestCaseBase
 {
 public:
-	HippoTestCaseBase(const char* case_name) : testcase_name(case_name){}
+	HippoTestCaseBase(const char* case_name) : testcase_name(case_name)
+	{
+		m_state=CASE_INIT;
+	}
+
+	//
+	virtual bool InitScene(){return true;}
+
+	//
+	virtual bool CleanUpScene(){return true;}
 
 	// 执行测试案例的方法，返回true表示已经完成
-	virtual bool Run() = 0;
+	virtual bool Render() = 0;
 
 	//!自定义的键盘消息处理函数，返回0表示对该消息不感兴趣，返回1表示已经处理，不需要默认消息处理函数再处理
 	virtual int ProcessInput(unsigned int nChar, bool bKeyDown, bool bAltDown,bool bCrtlDown,bool bShiftDown, void* pUserContext )
 	{
 		return 0;
 	}
-
+	CASE_STATE GetState(){return m_state;}
 	const char* GetTestCaseName(){return testcase_name.c_str();}
 protected:
-	bool m_bHasBegin;
-	bool m_bHasFinish;
+	CASE_STATE m_state;
+
 	std::string testcase_name; // 测试案例名称
 };
 
@@ -51,7 +66,7 @@ public:
 	// 注册测试案例
 	HippoTestCaseBase* RegisterTestCase(HippoTestCaseBase* pCase);
 
-	// 执行单元测试
+	// 执行单元测试，在frame begin和end之间调用
 	int RunAllTest();
 
 	//!自定义的键盘消息处理函数，返回0表示对该消息不感兴趣，返回1表示已经处理，不需要默认消息处理函数再处理

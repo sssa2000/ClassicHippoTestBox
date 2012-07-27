@@ -505,6 +505,7 @@ namespace H3DI
 		OBJECT_SOUND,
 		OBJECT_INDOOR,
 		OBJECT_SPECIALEFFECT,
+		OBJECT_DECAL,
 	};
 
 
@@ -845,6 +846,107 @@ namespace H3DI
 		float m_clrScale[3]; /// 颜色增强系数
 	};
 
+	//! 创建贴纸的信息结构
+	//! 不包括贴纸名称，可重复使用
+	struct tDecalCreateInfo 
+	{
+		tDecalCreateInfo()
+		{
+			Reset();
+		}
+
+		void Reset()
+		{
+			mDecalSize[0] = mDecalSize[1] = mDecalSize[2] = 1.0f;
+			mDecalRotateAngle = 0.0f;
+			mDecalTuneColor[0] = mDecalTuneColor[1] = mDecalTuneColor[2] = mDecalTuneColor[3] = 1.0f;
+			mDecalRayOrg[0] = mDecalRayOrg[1] = mDecalRayOrg[2] = 0.0f;
+			mDecalRayDir[0] = mDecalRayDir[2] = 0.0f;
+			mDecalRayDir[1] = 1.0f;
+			mDecalTex = NULL;
+		}
+
+		//! 大小
+		float mDecalSize[3];
+		//! 旋转角度
+		float mDecalRotateAngle;
+		//! 颜色
+		float mDecalTuneColor[4];
+		//! 贴图指针
+		H3DI::ITexture* mDecalTex;
+		//! 射线起点
+		float mDecalRayOrg[3];
+		//! 射线方向
+		float mDecalRayDir[3];
+	};
+
+	//! 贴纸重建结构
+	//! 主要包括贴图指针以及保存出来的贴纸mesh构建信息
+	struct tDecalLoadInfo
+	{
+		tDecalLoadInfo()
+		{
+			Reset();
+		}
+
+		void Reset()
+		{
+			mDecalTex = 0;
+			mDecalConstructInfo = 0;
+		}
+
+		//! 贴图指针
+		H3DI::ITexture* mDecalTex;
+		//! 贴图重建信息
+		const char* mDecalConstructInfo;
+	};
+
+	class IDecal : public IObject
+	{
+	public:
+		virtual ~IDecal() = 0 {};
+		//! 获取贴纸名称
+		virtual const char*		GetDecalName()			= 0;
+		//! 获取贴纸大小
+		virtual H3DVec3			GetDecalSize()			= 0;
+		//! 获取贴纸贴图名称
+		virtual const char*		GetDecalTexName()		= 0;
+		//! 获取贴纸旋转角度
+		virtual float			GetDecalRotateAngle()	= 0;
+		//! 获取贴纸颜色
+		virtual H3DVec4			GetDecalTuneColor()		= 0;
+		//! 获取贴纸顶点数目
+		//! 如果顶点数目为0，则表示没有贴纸网格，即此贴纸是无效的，客户端需要负责删除此贴纸
+		virtual int				GetDecalMeshVertexNum()	= 0;
+
+		//! 设置贴纸大小
+		//! 返回贴纸覆盖的顶点数目
+		//! 如果贴纸覆盖的顶点数目为0，则客户端应负责将此贴纸删除
+		virtual int				SetDecalSize(const H3DVec3& inSize)	= 0;
+		//! 设置贴纸旋转角度
+		//! 返回贴纸覆盖的顶点数目
+		virtual int				SetDecalRotateAngle(float inAngle)	= 0;
+		//! 设置创建贴纸使用的射线（世界空间）
+		//! 返回贴纸覆盖的顶点数目
+		virtual int				SetDecalRay(const H3DVec3& inRayOrg, const H3DVec3& inRayDir)	= 0;
+
+		//! 设置贴纸颜色
+		virtual bool			SetDecalTuneColor(const H3DVec4& inColor)	= 0;
+		//! 设置贴纸贴图
+		//! 返回是否设置成功
+		//! inpTex	:	贴图指针
+		virtual bool			SetDecalTexture(H3DI::ITexture* inpTex)		= 0;
+		//! inTaskId	:	异步加载贴图task的id
+		virtual bool			SetDecalTextureAndFinishTask(unsigned int inTaskId)	= 0;
+
+		//! 设置贴纸材质
+		virtual bool			SetDecalMaterial(const char* inMatName)	= 0;
+
+		//! 将Decal的Mesh创建信息保存到字符串中，需要将此信息保存出来以备重建贴纸
+		//! 不包括Decal使用的贴图名称，以及Decal所在的Entity的名称
+		virtual const char*		GetDecalConstructInfo()	= 0;
+	};
+
 	class IModel: public IMoveObject
 	{ 
 	public:
@@ -1039,6 +1141,26 @@ namespace H3DI
 			返回值：成功返回true，失败返回false。如果失败，或者用更大的lightmapsize，或者让美术手动展uv
 		*/
 		virtual bool GenerateLightmapUV(const int* lightmapSizeBuffer, const char* uvTexturePathName, int* bReadOnlyModified) = 0;
+
+		//! Decal 相关
+		//! 创建贴纸
+		//! inDecalName	:	贴纸名称，对于此模型来说必须唯一
+		//!	inDecalInfo	:	贴纸创建信息
+		//!	返回值		:	创建成功返回有效的IDecal指针，否则返回NULL；如果已有同样名字的Decal，则创建失败，返回NULL
+		virtual IDecal*		CreateDecal(const char* inDecalName, const tDecalCreateInfo& inDecalInfo)	= 0;
+		//! 查找贴纸
+		//! inDecalName	:	待查找的贴纸名称
+		//! 返回值		:	有对应名字的贴纸则返回其指针，否则返回NULL
+		virtual IDecal*		FindDecal(const char* inDecalName)	= 0;
+		//! 根据名字删除贴纸
+		//! inDecalName	:	待删除的贴纸名称
+		//! 返回值		:	成功删除则返回true，否则返回false
+		virtual bool		RemoveDecal(const char* inDecalName)	= 0;
+		//! 根据贴纸重建信息重新创建Decal
+		//! inDecalName	:	贴纸名称，对于此模型来说必须唯一
+		//! inDecalInfo	:	贴纸重建信息
+		//! 返回值		:	如果成功重建则返回有效的IDecal指针，否则返回NULL
+		virtual IDecal*		ReCreateDecal(const char* inDecalName, const tDecalLoadInfo& inDecalInfo)	= 0;
 
 		///后门函数
 		virtual void HelpFunction(int i,void* param0,void* param1=0,void* param2=0,void* param3=0,void* param4=0)=0;
@@ -1376,7 +1498,7 @@ namespace H3DI
 			m_clothDesity = 10.0f;
 			m_attachResponse = 0.2f;
 			m_collResponse = 0.2f;
-			strcpy(m_paraName,"default");
+			strcpy_s(m_paraName,256,"default");
 			m_hierarchLevel = 0;
 			m_pressure = 0.0f;
 		}
@@ -1413,11 +1535,11 @@ namespace H3DI
 		{
 			memset(m_dim,1,sizeof(m_dim));
 			
-			strcpy(m_boundName,"DefaultBound");
-			strcpy(m_parBoneName[0],"Bip01");
-			strcpy(m_parBoneName[1],"Bip01");
-			strcpy(m_parBoneName[2],"Bip01");
-			strcpy(m_parBoneName[3],"Bip01");
+			strcpy_s(m_boundName,256,"DefaultBound");
+			strcpy_s(m_parBoneName[0],256,"Bip01");
+			strcpy_s(m_parBoneName[1],256,"Bip01");
+			strcpy_s(m_parBoneName[2],256,"Bip01");
+			strcpy_s(m_parBoneName[3],256,"Bip01");
 
 			m_parBoneWeight[0] = 1.0f;
 			m_parBoneWeight[1] = 0.0f;
@@ -1815,6 +1937,10 @@ namespace H3DI
 		//! 设置挂件的可见性
 		//! 为保证向前兼容，挂件默认是可见的
 		virtual void			SetAdornmentVisibility(EActorAdornmentPosition adornmentposition, bool inVisibility) = 0;
+
+		// 打开/关闭高跟鞋偏移 
+		// 默认为开
+		virtual void				EnableHeelOffset(bool bEable) = 0;
 	};
 
 	/**

@@ -1,6 +1,7 @@
 #include "EngineBox.h"
 #include "ErrReport.h"
 #include "engine_interface.h"
+#include "EffectCore_dx.h"
 #include <string>
 
 EngineBox::EngineBox():
@@ -83,6 +84,7 @@ int EngineBox::Init(HWND hwnd,unsigned int width,unsigned int height)
 	float col[4]={0.5f,0.5f,0.5f,1.0};
 	m_pRenderer->SetClearColor(col);
 
+	m_pSpeManager=m_pRenderer->CreateEffectManager();
 	return 1;
 	//m_pRenderer->StartEngineThread(0);
 

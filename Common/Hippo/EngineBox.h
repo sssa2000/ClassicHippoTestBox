@@ -24,6 +24,7 @@ namespace H3DI
 typedef H3DI::IRender* (*CreateRenderPtr)();
 typedef void (*DeleteRenderPtr)();
 
+class ISpecialEffectManager;
 
 class EngineBox
 {
@@ -33,6 +34,7 @@ public:
 
 	int Init(HWND hwnd,unsigned int width,unsigned int height);
 	H3DI::IRender* m_pRenderer;
+	ISpecialEffectManager* m_pSpeManager;
 
 private:
 

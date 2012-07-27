@@ -5,13 +5,14 @@
 #include "HelpeDraw.h"
 #include "HippoContexInfoDefine.h"
 #include "input/Hippo_InputManager.h"
+#include "HippoScene.h"
 #include "engine_interface.h"
 
 
 HippoContexInfo* g_hippo_state=0;
 EngineBox* g_engine_box=0;
 Hippo_InputManager* gInputManager=0;
-
+HippoScene* gScene=0;
 void Hippo_OnSize(int w,int h);
 
 int Hippo_SetMsgProcCallback(CALLBACK_MSGPROC p)
@@ -50,6 +51,7 @@ int Hippo_InitFrameWork()
 		gInputManager=new Hippo_InputManager;
 		gInputManager->Init();
 	}
+
 
 	::AllocConsole();
 	g_hippo_state->m_console_handle=::GetStdHandle(STD_OUTPUT_HANDLE);
@@ -218,6 +220,11 @@ int Hippo_InitIRender()
 		g_engine_box=new EngineBox;
 		g_engine_box->Init(g_hippo_state->m_hwnd,g_hippo_state->m_WndWidth,g_hippo_state->m_WndHeight);
 	}
+
+	if(!gScene)
+	{
+		gScene=new HippoScene;
+	}
 	return 1;
 }
 
@@ -227,9 +234,19 @@ H3DI::IRender* Hippo_GetIRender()
 	return g_engine_box->m_pRenderer;
 }
 
+ISpecialEffectManager* Hippo_GetSpeManager()
+{
+	return g_engine_box->m_pSpeManager;
+}
+
 Hippo_InputManager* GetInputManager()
 {
 	return gInputManager;
+}
+
+HippoScene* Hippo_GetScene()
+{
+	return gScene;
 }
 
 //!绘制地面网格
