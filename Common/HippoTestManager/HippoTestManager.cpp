@@ -1,4 +1,5 @@
 #include "HippoTestManager.h"
+#include "HippoFrameWork.h"
 #include <iostream>
 
 HippoTestManager::HippoTestManager()
@@ -38,11 +39,12 @@ int HippoTestManager::RunAllTest()
 		CASE_STATE s=m_pCurrentTestCase->GetState();
 		if(s==CASE_INIT)
 		{
+			Hippo_WriteConsole(CC_BLUE,"*****************Bein A Test:%s*****************",m_pCurrentTestCase->GetTestCaseName());
 			m_pCurrentTestCase->InitScene();
 		}
 		else if (s==CASE_BEFORE_EXECING)
 		{
-			m_pCurrentTestCase->CleanUpScene();
+			
 		}
 		else if (s==CASE_EXECING)
 		{
@@ -51,7 +53,8 @@ int HippoTestManager::RunAllTest()
 		}
 		else if (s==CASE_END_EXECING)
 		{
-			//next
+			m_pCurrentTestCase->CleanUpScene();
+			Hippo_WriteConsole(CC_BLUE,"*****************End A Test:%s*****************",m_pCurrentTestCase->GetTestCaseName());
 			++m_TestCaseIdx;
 		}
 

@@ -3,7 +3,7 @@
 #include "idMath/dMathHeader.h"
 #include "EffectCore_dx.h"
 #include "HippoFrameWork.h"
-
+#include <algorithm>
 HippoScene::HippoScene()
 {
 	H3DI::IRender* pRender=Hippo_GetIRender();
@@ -12,6 +12,11 @@ HippoScene::HippoScene()
 
 HippoScene::~HippoScene()
 {
+	CleanScene();
+}
+
+void HippoScene::CleanScene()
+{
 	{
 		IActorConItr itr=m_IActorCon.begin();
 		while (itr!=m_IActorCon.end())
@@ -19,6 +24,7 @@ HippoScene::~HippoScene()
 			(*itr)->Release();
 			++itr;
 		}
+		m_IActorCon.clear();
 	}
 	{
 		IAvatarSkeletonModelConItr itr=m_IAvatarSkeletonModelCon.begin();
@@ -27,6 +33,7 @@ HippoScene::~HippoScene()
 			(*itr)->Release();
 			++itr;
 		}
+		m_IAvatarSkeletonModelCon.clear();
 	}
 
 	{
@@ -36,6 +43,7 @@ HippoScene::~HippoScene()
 			(*itr)->Release();
 			++itr;
 		}
+		m_IModelCon.clear();
 	}
 	{
 		ISkeletonModelConItr itr=m_ISkeletonModelCon.begin();
@@ -44,6 +52,7 @@ HippoScene::~HippoScene()
 			(*itr)->Release();
 			++itr;
 		}
+		m_ISkeletonModelCon.clear();
 	}
 
 	{
@@ -53,6 +62,7 @@ HippoScene::~HippoScene()
 			(*itr)->Release();
 			++itr;
 		}
+		m_ISpecialEffectCon.clear();
 	}
 	{
 		IPrePassLightConItr itr=m_IPrePassLightCon.begin();
@@ -62,7 +72,10 @@ HippoScene::~HippoScene()
 			plight->Release();
 			++itr;
 		}
+		m_IPrePassLightCon.clear();
 	}
+	H3DI::IRender* pRender=Hippo_GetIRender();
+	pRender->ClearMaterialLib();
 }
 
 H3DI::IModel*				HippoScene::CreateDml(const char* fn)
@@ -173,6 +186,8 @@ bool HippoScene::DelActor(H3DI::IActor* p)
 }
 bool HippoScene::DelDml(H3DI::IModel* p)
 {
+	p->Release();
+	m_IModelCon.erase(std::find(m_IModelCon.begin(),m_IModelCon.end(),p));
 	return true;
 }
 bool HippoScene::DelSpe(ISpecialEffect* p)

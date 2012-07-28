@@ -37,7 +37,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\alienbrainWork\engine-X52\branches\multi_thread\editor</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\X52Demo\editor</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</EmbedManifest>
@@ -127,7 +127,8 @@
     <ClCompile Include="..\Common\Hippo\camera\FPSCamera.cpp" />
     <ClCompile Include="..\Common\Hippo\camera\ModelViewCamera.cpp" />
     <ClCompile Include="..\Common\Hippo\Input\Hippo_InputManager.cpp" />
-    <ClCompile Include="HippoTestActorCase.cpp" />
+    <ClCompile Include="..\Common\Hippo\RefCountCompare.cpp" />
+    <ClCompile Include="DmlTest1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\HippoTestManager\HippoTestManager.h" />
@@ -137,6 +138,7 @@
     <ClInclude Include="..\Common\Hippo\HippoContexInfoDefine.h" />
     <ClInclude Include="..\Common\Hippo\HippoFrameWork.h" />
     <ClInclude Include="..\Common\Hippo\HippoScene.h" />
+    <ClInclude Include="..\Common\Hippo\RefCountCompare.h" />
     <ClInclude Include="..\Common\Hippo\Resource.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Angles.h" />
     <ClInclude Include="..\Common\Hippo\idMath\containers\BTree.h" />

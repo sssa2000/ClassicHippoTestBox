@@ -57,7 +57,7 @@ public:
 
 	H3DI::IActor*				CreateActor(bool bmale);
 	H3DI::IModel*				CreateDml(const char* fn);
-	ISpecialEffect*		CreateSpe(const char* fn);
+	ISpecialEffect*				CreateSpe(const char* fn);
 	H3DI::INewShader*			CreateShader(const char* fn,const char* matn);
 	H3DI::ISkeletonModel*		CreateChr(const char* fn);
 	H3DI::IAvatarSkeletonModel* CreatePet(bool bmale);
@@ -65,6 +65,7 @@ public:
 	H3DI::IPrePassLight*		CreateSpotLight();
 	H3DI::IPrePassLight*		CreatePointLight();
 
+	void CleanScene();
 	bool DelActor(H3DI::IActor* p);
 	bool DelDml(H3DI::IModel* p);
 	bool DelSpe(ISpecialEffect* p);

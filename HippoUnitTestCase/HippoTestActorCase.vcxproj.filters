@@ -26,6 +26,9 @@
     <Filter Include="HIPPO\Scene">
       <UniqueIdentifier>{95ed0558-9b29-4785-a630-58b8f39002e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HIPPO\Util">
+      <UniqueIdentifier>{0742d41b-1d27-4a54-9b6e-af5ebd8920ee}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\Hippo\EngineBox.cpp">
@@ -121,9 +124,6 @@
     <ClCompile Include="..\Common\Hippo\Input\Hippo_InputManager.cpp">
       <Filter>HIPPO\Input</Filter>
     </ClCompile>
-    <ClCompile Include="HippoTestActorCase.cpp">
-      <Filter>TestApp</Filter>
-    </ClCompile>
     <ClCompile Include="..\Common\HippoTestManager\HippoTestManager.cpp">
       <Filter>HIPPO\TestCaseManager</Filter>
     </ClCompile>
@@ -132,6 +132,12 @@
     </ClCompile>
     <ClCompile Include="..\Common\Hippo\HippoScene.cpp">
       <Filter>HIPPO\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Hippo\RefCountCompare.cpp">
+      <Filter>HIPPO\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="DmlTest1.cpp">
+      <Filter>TestApp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -257,6 +263,9 @@
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\HippoScene.h">
       <Filter>HIPPO\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Hippo\RefCountCompare.h">
+      <Filter>HIPPO\Util</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

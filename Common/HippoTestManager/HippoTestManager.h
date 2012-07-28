@@ -39,6 +39,7 @@ public:
 	// 执行测试案例的方法，返回true表示已经完成
 	virtual bool Render() = 0;
 
+
 	//!自定义的键盘消息处理函数，返回0表示对该消息不感兴趣，返回1表示已经处理，不需要默认消息处理函数再处理
 	virtual int ProcessInput(unsigned int nChar, bool bKeyDown, bool bAltDown,bool bCrtlDown,bool bShiftDown, void* pUserContext )
 	{
