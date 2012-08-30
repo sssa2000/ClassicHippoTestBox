@@ -27,7 +27,7 @@ public:
 	void SetLookAtPos(const H3DVec3& at);
 
 	int FrameUpdate(float fElapsedTime);
-	void LookAt(H3DI::IRender* pRender,H3DI::ILevel* pLevel);
+	void LookAt(H3DI::IRender* pRender);
 
 	void SetWindow( int nWidth, int nHeigh);
 	void SetModelCenter( H3DVec3& vModelCenter ) { m_RoateCenter = vModelCenter; }

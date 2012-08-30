@@ -70,13 +70,12 @@ int FPSCamera::FrameUpdate(float fElapsedTime)
 	return 1;
 }
 
-void FPSCamera::LookAt(H3DI::IRender* pRender,H3DI::ILevel* pLevel)
+void FPSCamera::LookAt(H3DI::IRender* pRender)
 {
 	pRender->LookAt(m_Pos,m_Pos+m_ViewAtDir,m_UpDir);
 	pRender->UpdateCamera();
 
-	pLevel->LookAt(m_Pos,m_Pos+m_ViewAtDir,m_UpDir);
-	pLevel->UpdateCamera();
+
 }
 
 //!将一帧中记录的输入转化为相机的运动

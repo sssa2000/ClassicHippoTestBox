@@ -10,6 +10,15 @@ HippoTestManager::HippoTestManager()
 
 HippoTestManager::~HippoTestManager()
 {
+	TestCaseConItr itr=m_all_testcase.begin();
+	while (itr!=m_all_testcase.end())
+	{
+		HippoTestCaseBase* p=*itr;
+		delete p;
+		p=0;
+		++itr;
+	}
+	m_all_testcase.clear();
 }
 
 // µ¥¼þ

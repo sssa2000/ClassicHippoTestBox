@@ -174,6 +174,9 @@ public:
 		return 0;
 	}
 
+	//reload shader
+	virtual void reloadShader() = 0;
+
 	/// 设置此特效为角色相关特效
 	virtual void	SetIsActorEffect(bool b) = 0;
 

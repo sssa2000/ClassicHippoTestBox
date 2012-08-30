@@ -201,16 +201,11 @@ int ModelViewCamera::AnalysisMouseInput(float fElapsedTime)
 	return 1;
 }
 
-void ModelViewCamera::LookAt(H3DI::IRender* pRender,H3DI::ILevel* pLevel)
+void ModelViewCamera::LookAt(H3DI::IRender* pRender)
 {
 	pRender->LookAt(m_Pos,m_Pos+m_ViewAtDir,m_UpDir);
 	pRender->UpdateCamera();
 
-	if(pLevel)
-	{
-		pLevel->LookAt(m_Pos,m_Pos+m_ViewAtDir,m_UpDir);
-		pLevel->UpdateCamera();
 
-	}
 }
 

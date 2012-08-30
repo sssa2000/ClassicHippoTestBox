@@ -14,6 +14,7 @@
 #include <string>
 #include <map>
 
+class CameraBase;
 namespace H3DI
 {
 	class IActor;
@@ -24,6 +25,9 @@ namespace H3DI
 	class ISkeletonModel;
 	class IPrePassLight;
 	class ILevel;
+	class ITerrain;
+	class IScene;
+
 }
 class ISpecialEffect;
 
@@ -53,7 +57,7 @@ class HippoScene
 {
 public:
 	HippoScene();
-	~HippoScene();
+	virtual ~HippoScene();
 
 	H3DI::IActor*				CreateActor(bool bmale);
 	H3DI::IModel*				CreateDml(const char* fn);
@@ -65,6 +69,7 @@ public:
 	H3DI::IPrePassLight*		CreateSpotLight();
 	H3DI::IPrePassLight*		CreatePointLight();
 
+
 	void CleanScene();
 	bool DelActor(H3DI::IActor* p);
 	bool DelDml(H3DI::IModel* p);
@@ -72,25 +77,77 @@ public:
 	bool DelShader(H3DI::INewShader* p);
 	bool DelChr(H3DI::ISkeletonModel* p);
 	bool DelPet(H3DI::IAvatarSkeletonModel* p);
-	bool DelLight(H3DI::IPrePassLight* p);
+	bool DelTerrain(H3DI::ITerrain* p);
 
-	void PushSceneToRender(float timeMs);
-	void UpdateScene(float timeMs);
-
-	bool LoadSceneFromFile(const char* xmlfile);
-
-	H3DI::ILevel* GetLevel(){return m_pLevel;}
+	bool DelDirLight(H3DI::IPrePassLight* p);
+	bool DelPointLight(H3DI::IPrePassLight* p);
+	bool DelSpotLight(H3DI::IPrePassLight* p);
+	
+	virtual void Update(float escape);
+	virtual H3DI::IScene* GetH3DScene()=0;
 protected:
 	
 	//¸÷ÀàÈÝÆ÷
 	IActorCon m_IActorCon;
 	IModelCon m_IModelCon;
 	INewShaderCon m_INewShaderCon;
-	IPrePassLightCon m_IPrePassLightCon;
 	ISpecialEffectCon m_ISpecialEffectCon;
 	ISkeletonModelCon m_ISkeletonModelCon;
 	IAvatarSkeletonModelCon m_IAvatarSkeletonModelCon;
 
-	H3DI::ILevel* m_pLevel;
+	IPrePassLightCon m_DirCon;
+	IPrePassLightCon m_PointCon;
+	IPrePassLightCon m_SpotCon;
+
+
+
 private:
+};
+
+
+class HippoLevelScene:public HippoScene
+{
+public:
+	HippoLevelScene();
+	~HippoLevelScene();
+	virtual void Update(float escape);
+	virtual H3DI::IScene* GetH3DScene();
+private:
+	H3DI::ILevel* m_pLevel;
+};
+
+
+class HippoTerrainScene:public HippoScene
+{
+public:
+	HippoTerrainScene();
+	HippoTerrainScene(const char* terrain_path);
+	~HippoTerrainScene();
+	virtual void Update(float escape);
+	virtual H3DI::IScene* GetH3DScene();
+private:
+	H3DI::ITerrain* m_pTerrain;
+};
+
+class HippoSceneManager
+{
+public:
+	HippoSceneManager();
+	~HippoSceneManager();
+
+	void LookAt(CameraBase* pCam);
+	void PushSceneToRender(float timeMs);
+	void UpdateScene(float timeMs);
+	HippoLevelScene*	CreateEmptyLevel();
+	HippoLevelScene*	LoadSceneFromFile(const char* xmlfile);
+	HippoTerrainScene*	CreateEmptyTerrain(unsigned int w,unsigned int h);
+	HippoTerrainScene*	LoadTerrainFromFile(const char* terrain_dir);
+
+
+	bool DelScene(HippoScene* p);
+private:
+	typedef std::vector<HippoScene*> SceneCon;
+	typedef SceneCon::iterator SceneConItr;
+
+	SceneCon m_scenes;
 };

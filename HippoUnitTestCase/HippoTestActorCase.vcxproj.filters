@@ -109,9 +109,6 @@
     <ClCompile Include="..\Common\Hippo\camera\ArcBall.cpp">
       <Filter>HIPPO\Camera</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\Hippo\camera\BaseCamera.cpp">
-      <Filter>HIPPO\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="..\Common\Hippo\camera\CameraControlMap.cpp">
       <Filter>HIPPO\Camera</Filter>
     </ClCompile>
@@ -138,6 +135,21 @@
     </ClCompile>
     <ClCompile Include="DmlTest1.cpp">
       <Filter>TestApp</Filter>
+    </ClCompile>
+    <ClCompile Include="EmptyTerrainTest.cpp">
+      <Filter>TestApp</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadTerrainTest.cpp">
+      <Filter>TestApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Hippo\HippoLevelScene.cpp">
+      <Filter>HIPPO\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Hippo\HippoTerrainScene.cpp">
+      <Filter>HIPPO\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\Hippo\HippoSceneManager.cpp">
+      <Filter>HIPPO\Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -232,9 +244,6 @@
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\camera\ArcBall.h">
-      <Filter>HIPPO\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\camera\BaseCamera.h">
       <Filter>HIPPO\Camera</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\camera\CameraBase.h">

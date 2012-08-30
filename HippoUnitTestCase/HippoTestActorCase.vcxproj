@@ -37,7 +37,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\X52Demo\editor</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">G:\Project_H_MT\editor</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</EmbedManifest>
@@ -99,7 +99,10 @@
     <ClCompile Include="..\Common\Hippo\ErrReport.cpp" />
     <ClCompile Include="..\Common\Hippo\HelpeDraw.cpp" />
     <ClCompile Include="..\Common\Hippo\HippoFrameWork.cpp" />
+    <ClCompile Include="..\Common\Hippo\HippoLevelScene.cpp" />
     <ClCompile Include="..\Common\Hippo\HippoScene.cpp" />
+    <ClCompile Include="..\Common\Hippo\HippoSceneManager.cpp" />
+    <ClCompile Include="..\Common\Hippo\HippoTerrainScene.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Angles.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\cpuid.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\Decompose.cpp" />
@@ -122,13 +125,14 @@
     <ClCompile Include="..\Common\Hippo\idMath\Str.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Vector.cpp" />
     <ClCompile Include="..\Common\Hippo\camera\ArcBall.cpp" />
-    <ClCompile Include="..\Common\Hippo\camera\BaseCamera.cpp" />
     <ClCompile Include="..\Common\Hippo\camera\CameraControlMap.cpp" />
     <ClCompile Include="..\Common\Hippo\camera\FPSCamera.cpp" />
     <ClCompile Include="..\Common\Hippo\camera\ModelViewCamera.cpp" />
     <ClCompile Include="..\Common\Hippo\Input\Hippo_InputManager.cpp" />
     <ClCompile Include="..\Common\Hippo\RefCountCompare.cpp" />
     <ClCompile Include="DmlTest1.cpp" />
+    <ClCompile Include="EmptyTerrainTest.cpp" />
+    <ClCompile Include="LoadTerrainTest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\HippoTestManager\HippoTestManager.h" />
@@ -165,7 +169,6 @@
     <ClInclude Include="..\Common\Hippo\idMath\Str.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Vector.h" />
     <ClInclude Include="..\Common\Hippo\camera\ArcBall.h" />
-    <ClInclude Include="..\Common\Hippo\camera\BaseCamera.h" />
     <ClInclude Include="..\Common\Hippo\camera\CameraBase.h" />
     <ClInclude Include="..\Common\Hippo\camera\CameraControlMap.h" />
     <ClInclude Include="..\Common\Hippo\camera\FPSCamera.h" />

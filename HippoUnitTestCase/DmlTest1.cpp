@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 /*
 测试逻辑：
 1、加载一个模型，记录引擎当前引用计数
@@ -18,6 +17,8 @@ using namespace std;
 class DmlTest1:public HippoTestCaseBase
 {
 public:
+	HippoLevelScene* m_pLevelScene;
+
 	HippoResStateSnapShot* m_pMatSnapShot0;
 	HippoResStateSnapShot* m_pMatSnapShot1;
 
@@ -35,10 +36,9 @@ public:
 		m_pTplSnapShot0=RefCountCompare::GetResState(HIPPO_TPL_RES);
 		m_pTexSnapShot0=RefCountCompare::GetResState(HIPPO_TEX_RES);
 
-
 		const char* path1="../resources/art/stage/actorcreate001/model/actorcreate001_wall002.dml";
-		HippoScene* pScene=Hippo_GetScene();
-		pScene->CreateDml(path1);
+		m_pLevelScene=Hippo_GetSceneManager()->CreateEmptyLevel();
+		m_pLevelScene->CreateDml(path1);
 		m_state=CASE_EXECING;
 		return true;
 	}
@@ -48,7 +48,7 @@ public:
 		bool bmat=RefCountCompare::SnapShotEqual(m_pMatSnapShot0,m_pMatSnapShot1);
 		bool btpl=RefCountCompare::SnapShotEqual(m_pTplSnapShot0,m_pTplSnapShot1);
 		bool btex=RefCountCompare::SnapShotEqual(m_pTexSnapShot0,m_pTexSnapShot1);
-		
+
 		if(bmat)
 			Hippo_WriteConsole(CC_GREEN,"Mat引用计数相等，测试通过");
 		else
@@ -67,8 +67,10 @@ public:
 	//
 	virtual bool CleanUpScene()
 	{
-		HippoScene* pScene=Hippo_GetScene();
-		pScene->CleanScene();
+		
+		Hippo_GetSceneManager()->DelScene(m_pLevelScene);
+		m_pLevelScene=0;
+
 		m_pMatSnapShot1=RefCountCompare::GetResState(HIPPO_MAT_RES);
 		m_pTplSnapShot1=RefCountCompare::GetResState(HIPPO_TPL_RES);
 		m_pTexSnapShot1=RefCountCompare::GetResState(HIPPO_TEX_RES);
@@ -87,7 +89,6 @@ public:
 
 	virtual bool Render()
 	{
-
 		return true;
 	}
 
@@ -108,9 +109,8 @@ public:
 		return 0;
 	}
 
-
 private:
-	static HippoTestCaseBase* const testcase_; 
+	static HippoTestCaseBase* const testcase_;
 };
 
-ADD_TESTCASE(DmlTest1)
+//ADD_TESTCASE(DmlTest1)

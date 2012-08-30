@@ -76,7 +76,7 @@ int WINAPI wWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdL
 
 void Update(float escape)
 {
-	Hippo_GetScene()->UpdateScene(escape);
+	Hippo_GetSceneManager()->UpdateScene(escape);
 
 }
 
@@ -94,7 +94,7 @@ int OnFrameUpdate(DWORD fElapsedTimeInMs, void* pUserContext )
 	pRender->FrameBegin();
 	pRender->ClearScreen();
 
-	Hippo_GetScene()->PushSceneToRender(fElapsedTimeInMs*0.001f);
+	Hippo_GetSceneManager()->PushSceneToRender(fElapsedTimeInMs*0.001f);
 
 
 	pRender->Render();
@@ -137,7 +137,8 @@ void SetUpCamera(DWORD fElapsedTimeInMs)
 {
 	H3DI::IRender* pRender=Hippo_GetIRender();
 	pCam[cameraIdx]->FrameUpdate(fElapsedTimeInMs*0.001f);
-	pCam[cameraIdx]->LookAt(pRender,Hippo_GetScene()->GetLevel());
+	pCam[cameraIdx]->LookAt(pRender);
+	Hippo_GetSceneManager()->LookAt(pCam[cameraIdx]);
 }
 
 //!自定义的消息处理函数，返回0表示对该消息不感兴趣，返回1表示已经处理，不需要默认消息处理函数再处理

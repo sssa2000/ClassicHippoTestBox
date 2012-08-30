@@ -29,7 +29,7 @@ public:
 
 	const H3DQuat& GetRotation();
 	int FrameUpdate(float fElapsedTime);
-	void LookAt(H3DI::IRender* pRender,H3DI::ILevel* pLevel);
+	void LookAt(H3DI::IRender* pRender);
 protected:
 private:
 

@@ -12,7 +12,7 @@
 HippoContexInfo* g_hippo_state=0;
 EngineBox* g_engine_box=0;
 Hippo_InputManager* gInputManager=0;
-HippoScene* gScene=0;
+HippoSceneManager* gSceneManager=0;
 void Hippo_OnSize(int w,int h);
 
 int Hippo_SetMsgProcCallback(CALLBACK_MSGPROC p)
@@ -221,9 +221,9 @@ int Hippo_InitIRender()
 		g_engine_box->Init(g_hippo_state->m_hwnd,g_hippo_state->m_WndWidth,g_hippo_state->m_WndHeight);
 	}
 
-	if(!gScene)
+	if(!gSceneManager)
 	{
-		gScene=new HippoScene;
+		gSceneManager=new HippoSceneManager;
 	}
 	return 1;
 }
@@ -244,9 +244,9 @@ Hippo_InputManager* GetInputManager()
 	return gInputManager;
 }
 
-HippoScene* Hippo_GetScene()
+HippoSceneManager* Hippo_GetSceneManager()
 {
-	return gScene;
+	return gSceneManager;
 }
 
 //!绘制地面网格

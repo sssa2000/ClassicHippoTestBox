@@ -2432,7 +2432,12 @@ namespace H3DI
 	//	Terrain System
 	class IRender;
 
-
+	//摄象机类型
+	enum ECameraType
+	{
+		ECT_Render = 0,
+		ECT_Culling = 1
+	};
 	class IScene : public IMoveObject
 	{
 	public:
@@ -2445,7 +2450,56 @@ namespace H3DI
 		//当物体移动时，必须使物体在场景中移动！ 只有CLIENT知道MODEL是否移动了
 		//当物体没有移动时，不要调用此函数。
 		virtual void					MoveModel(IMoveObject* pObj)=0;	
+		//在一个场景中添加后处理
+		virtual void					AddPostProcess(const char* filename)=0;
+		//在一个删除后处理
+		virtual void					DelPostProcess(const char* filename)=0;
+		//设置一个场景的后处理参数
+		virtual void					SetPostProcessParam(const char *name,const void *pvalue,int sizeOfValue)=0;
+		//设置一个场景的视口
+		virtual	void					SetViewPort(const unsigned short *vp) = 0;
+		//得到一个场景的视口,传入一个四个元素的数组
+		virtual	void					GetViewPort(unsigned short *vp) = 0;
+		//设置视矩阵
+		virtual void					SetViewMatrix(const H3DMat4 &mat) = 0;
+		//设置透视矩阵
+		virtual void					SetPerspectiveMatrix(const H3DMat4 &mat) = 0;
 
+		//视矩阵
+		virtual void					GetViewMatrix(H3DMat4 &mat) = 0;
+		//透视矩阵
+		virtual void					GetPerspectiveMatrix(H3DMat4 &mat) = 0;
+		virtual void					SetEyePosition(const H3DVec3& pos) = 0;
+		virtual void					GetEyePosition(H3DVec3& pos) = 0;
+		virtual void					LookAt(const H3DVec3& eyepos, const H3DVec3& at, const H3DVec3& up) = 0;
+
+		virtual void					RotateDirection(float yaw_offset,float pitch_offset,float roll_offset)=0;
+		virtual void					SetCameraRotation(float yaw,float pitch,float roll)=0;
+		virtual void					GetRotateDir(float& yaw,float& pitch,float& roll)=0;
+
+		virtual void					GetEyeDirection(H3DVec3& vec) = 0;
+		virtual void					SetFrustum(float fov,float ratio,float fNear,float fFar,ECameraType camType = ECT_Render)=0;
+		virtual void					GetFrustum(float& fov,float& ratio,float& fNear,float& fFar,ECameraType camType = ECT_Render)=0;
+		virtual void					UpdateCamera()=0;
+
+		/// 设置场景环境光颜色
+		virtual void					SetAmbientColor(const float *col)=0;
+		/// 设置角色环境光颜色			
+		virtual void					SetActorAmbientColor(const float *col)=0;
+		//设置次表面散射颜色
+		virtual void					SetTransmissionColor(const float* col) = 0;
+		/// 设置场景材质OD
+		virtual void					SetMaterialLod(int nLod)=0;
+		/// 得到材质LOD			
+		virtual int						GetMaterialLod()=0;
+
+		virtual void					SetShadowFadeoutEnd(float fParam) = 0;
+		// 影响lightmap颜色 lm' = lm * a + b
+		// a, b均为float3
+		virtual void					SetLightmapColorFactor(const float* a, const float* b) = 0;
+		//根据场影中细节物体重新分割八叉树
+		virtual void RestructScene()=0;
+		/////////////////////////////////////////////////////////////////////////////以下目前没用//////////////////////////////
 		//!!!!!! ISceneSearch must be Released by CLIENT !!!!!!
 		//use aabb to search
 		//使用AABB搜索
@@ -2466,24 +2520,25 @@ namespace H3DI
 		virtual void					SetCurrentCamera(IRender* pRenderer)=0;
 	};
 	//地形细节物体的类型
-	enum ETerrainObjectLayer
+	enum ESceneLayer
 	{
-
-		ETOL_SmallPatch = 0,
+		//原有的层，保留
+		SL_TerrainSmallPatch = 0,
 		//草
-		ETOL_Grass,
-		//细节物体
-		ETOL_Tree,
-		//动态添加的其它物体
-		ETOL_Others,
+		SL_TerrainGrass,
 		//光
-		ETOL_Lights,
+		SL_Lights,
 		//细节物体
-		ETOL_DetailObj,
+		SL_DetailObj,
 		//特效
-		ETOL_SpecialEffect,
+		SL_SpecialEffect,
+		SL_Actors,
+		//特效
+		SL_ActorSpecialEffect,
 		//层数量
-		ETOL_LayerCount,
+		SL_LayerCount,
+		//粒子
+		SL_Particle,
 	};
 
 
@@ -2502,10 +2557,10 @@ namespace H3DI
 		virtual	IModel*					GetMountainModel() = 0;
 
 		//设置某层可见
-		virtual void							SetLayerVisable(ETerrainObjectLayer type,bool bVisable) = 0;
+		virtual void							SetLayerVisable(int type,bool bVisable) = 0;
 
 		//设置远截面
-		virtual void							SetLayerDist(ETerrainObjectLayer type,float farDist,float nearDist) = 0;
+		virtual void							SetLayerDist(int type,float farDist,float nearDist) = 0;
 
 		virtual bool					TurnOff()=0;//*
 		//计算LOD
@@ -3295,12 +3350,7 @@ namespace H3DI
 		float sunPos[3];
 	};
 	
-	//摄象机类型
-	enum ECameraType
-	{
-		ECT_Render = 0,
-		ECT_Culling = 1
-	};
+
 
 	//引擎使用者，某些针对编辑器的需求需要显示调用IRender::SetUser接口
 	enum EngineUserDefine
@@ -3341,6 +3391,17 @@ namespace H3DI
 		OutPut_File			= 1<<0,
 		OutPut_Console		= 1<<1,
 		OutPut_RenderWindow = 1<<2
+	};
+
+	// 资源使用情况统计，单位为字节
+	struct ResourceUsageInfo
+	{
+		int TotalTextureSize;
+		int	UnusedTextureSize;
+		int TotalAnimationSize;
+		int UnusedAnimationSize;
+		int TotalGeometrySize;
+		int UnusedGeometrySize;		
 	};
 
 	//!IO线程Task执行状态监控，测试用例使用
@@ -3685,7 +3746,7 @@ namespace H3DI
 		//!读取关卡文件
 		virtual ILevel*                 LoadLevel(const char* fileName) = 0;
 		//!push一个关卡进行渲染
-		virtual void                    PushLevel(ILevel* p) = 0;
+		//virtual void                    PushLevel(ILevel* p) = 0;
 		//!渲染关卡的阴影
 		virtual void                    RenderLevelShadowMap(ILevel*) = 0;
 		//!执行命令,可扩展接口
@@ -3830,9 +3891,9 @@ namespace H3DI
 		virtual void drawPhy()=0;
 		//add by liren
 		//将地形放入管线
-		virtual void PushTerrain(H3DI::ITerrain *pTerrain) = 0;
+		//virtual void PushTerrain(H3DI::ITerrain *pTerrain) = 0;
 		//!add by liren
-
+		virtual void PushScene(H3DI::IScene *pScene) = 0;
 		//add by liren
 		//在地形上创建一个面片
 		virtual	IModel*			GenerateSmallPatch(float length,float width,ITerrain *pTerrain) = 0;
@@ -4046,6 +4107,10 @@ namespace H3DI
 		//获得截屏数据
 		virtual const PrintScreenInfo* GetPrintScreenInfo()=0;
 		virtual void ReleasePrintScreenInfo(const PrintScreenInfo* pInfo)=0;
+
+		// 获取当前资源使用情况
+		virtual void GetResourceUsageInfo(ResourceUsageInfo* pInfo) = 0;
+
 	};
 
 
@@ -4086,23 +4151,12 @@ namespace H3DI
 		LDC_INTERSECTION=0,
 		LDC_UNION
 	};
-	enum LevelLayer
-	{
-
-		LL_DetailObj = 0,
-		LL_SpeEffect,
-		LL_Actor,
-		LL_Light,
-		LL_Particle,
-	};
 	//!关卡
 	class ILevel : public IScene
 	{
 	public:
 		//!得到AABB
 		virtual void GetWorldAABB(float* pArray6)const = 0;
-		//!设置环境光颜色
-		virtual void SetAmbientColor(float r, float g, float b) = 0;
 		//!读geometry
 		virtual bool Load(const char* fileName) = 0;
 		//!用相机culling
@@ -4125,56 +4179,8 @@ namespace H3DI
 		virtual int GetOccluderNumber()=0;
 		virtual void DrawOccluder(int i)=0;
 		virtual void DrawOccluderFrustum(int i,H3DVec3& viewPoint)=0;
-		//根据场影中细节物体重新分割八叉树
-		virtual void RestructOctree()=0;
-		//在一个场景中添加后处理
-		virtual void			AddPostProcess(const char* filename)=0;
-		//在一个删除后处理
-		virtual void			DelPostProcess(const char* filename)=0;
-		//设置一个场景的后处理参数
-		virtual void			SetPostProcessParam(const char *name,const void *pvalue,int sizeOfValue)=0;
-		//设置一个场景的视口
-		virtual	void			SetViewPort(const unsigned short *vp) = 0;
-		//得到一个场景的视口,传入一个四个元素的数组
-		virtual	void			GetViewPort(unsigned short *vp) = 0;
-		//设置视矩阵
-		virtual void			SetViewMatrix(const H3DMat4 &mat) = 0;
-		//设置透视矩阵
-		virtual void			SetPerspectiveMatrix(const H3DMat4 &mat) = 0;
 
-		//视矩阵
-		virtual void					GetViewMatrix(H3DMat4 &mat) = 0;
-		//透视矩阵
-		virtual void					GetPerspectiveMatrix(H3DMat4 &mat) = 0;
-		virtual void					SetEyePosition(const H3DVec3& pos) = 0;
-		virtual void					GetEyePosition(H3DVec3& pos) = 0;
-		virtual void					LookAt(const H3DVec3& eyepos, const H3DVec3& at, const H3DVec3& up) = 0;
-
-		virtual void					RotateDirection(float yaw_offset,float pitch_offset,float roll_offset)=0;
-		virtual void					SetCameraRotation(float yaw,float pitch,float roll)=0;
-		virtual void					GetRotateDir(float& yaw,float& pitch,float& roll)=0;
-
-		virtual void					GetEyeDirection(H3DVec3& vec) = 0;
-		virtual void					SetFrustum(float fov,float ratio,float fNear,float fFar,ECameraType camType = ECT_Render)=0;
-		virtual void					GetFrustum(float& fov,float& ratio,float& fNear,float& fFar,ECameraType camType = ECT_Render)=0;
-		virtual void					UpdateCamera()=0;
-
-		/// 设置场景环境光颜色
-		virtual void					SetAmbientColor(const float *col)=0;
-		/// 设置角色环境光颜色			
-		virtual void					SetActorAmbientColor(const float *col)=0;
-		//设置次表面散射颜色
-		virtual void					SetTransmissionColor(const float* col) = 0;
-		/// 设置场景材质LOD
-		virtual void					SetMaterialLod(int nLod)=0;
-		/// 得到材质LOD			
-		virtual int						GetMaterialLod()=0;
-
-		virtual void					SetShadowFadeoutEnd(float fParam) = 0;
-
-		// 影响lightmap颜色 lm' = lm * a + b
-		// a, b均为float3
-		virtual void				SetLightmapColorFactor(const float* a, const float* b) = 0;
+	
 
 
 	protected:

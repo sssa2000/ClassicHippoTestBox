@@ -37,7 +37,7 @@ public:
 
 	//!子类必须实现该方法，该方法中将一帧中的输入拿出来，做响应
 	virtual int FrameUpdate(float fElapsedTime)=0;
-	virtual void LookAt(H3DI::IRender* pRender,H3DI::ILevel* pLevel)=0;
+	virtual void LookAt(H3DI::IRender* pRender)=0;
 protected:
 private:
 };

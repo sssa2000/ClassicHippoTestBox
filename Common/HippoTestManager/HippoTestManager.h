@@ -75,7 +75,9 @@ public:
 protected:
 	unsigned int m_TestCaseIdx;//当前运行到哪个测试用例
 	HippoTestCaseBase* m_pCurrentTestCase; // 记录当前执行的测试案例
-	std::vector<HippoTestCaseBase*> m_all_testcase;
+	typedef std::vector<HippoTestCaseBase*> TestCaseCon;
+	typedef TestCaseCon::iterator TestCaseConItr;
+	TestCaseCon m_all_testcase;
 };
 
 

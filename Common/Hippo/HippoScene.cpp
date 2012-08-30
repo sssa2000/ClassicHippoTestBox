@@ -6,8 +6,7 @@
 #include <algorithm>
 HippoScene::HippoScene()
 {
-	H3DI::IRender* pRender=Hippo_GetIRender();
-	m_pLevel=pRender->CreateLevel("HippoLevel");
+
 }
 
 HippoScene::~HippoScene()
@@ -65,15 +64,36 @@ void HippoScene::CleanScene()
 		m_ISpecialEffectCon.clear();
 	}
 	{
-		IPrePassLightConItr itr=m_IPrePassLightCon.begin();
-		while (itr!=m_IPrePassLightCon.end())
+		IPrePassLightConItr itr=m_DirCon.begin();
+		while (itr!=m_DirCon.end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Release();
 			++itr;
 		}
-		m_IPrePassLightCon.clear();
+		m_DirCon.clear();
 	}
+	{
+		IPrePassLightConItr itr=m_PointCon.begin();
+		while (itr!=m_PointCon.end())
+		{
+			H3DI::IPrePassLight* plight=*itr;
+			plight->Release();
+			++itr;
+		}
+		m_PointCon.clear();
+	}
+	{
+		IPrePassLightConItr itr=m_SpotCon.begin();
+		while (itr!=m_SpotCon.end())
+		{
+			H3DI::IPrePassLight* plight=*itr;
+			plight->Release();
+			++itr;
+		}
+		m_SpotCon.clear();
+	}
+
 	H3DI::IRender* pRender=Hippo_GetIRender();
 	pRender->ClearMaterialLib();
 }
@@ -87,8 +107,7 @@ H3DI::IModel*				HippoScene::CreateDml(const char* fn)
 	p->Update(0);
 	m_IModelCon.push_back(p);
 
-	if(m_pLevel)
-		m_pLevel->AttachModel((H3DI::IMoveObject*)p,H3DI::LL_DetailObj);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_DetailObj);
 	
 	return p;
 }
@@ -99,8 +118,7 @@ ISpecialEffect*		HippoScene::CreateSpe(const char* fn)
 	p->update(0);
 
 	m_ISpecialEffectCon.push_back(p);
-	if(m_pLevel)
-		m_pLevel->AttachModel((H3DI::IMoveObject*)p,H3DI::LL_SpeEffect);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_SpecialEffect);
 	return p;
 }
 
@@ -118,8 +136,7 @@ H3DI::ISkeletonModel*		HippoScene::CreateChr(const char* fn)
 	p->Update(0);
 	m_ISkeletonModelCon.push_back(p);
 
-	if(m_pLevel)
-		m_pLevel->AttachModel((H3DI::IMoveObject*)p,H3DI::LL_DetailObj);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_DetailObj);
 
 	return p;
 }
@@ -145,8 +162,7 @@ H3DI::IAvatarSkeletonModel* HippoScene::CreatePet(bool bmale)
 	p->Update(0);
 	m_IAvatarSkeletonModelCon.push_back(p);
 
-	if(m_pLevel)
-		m_pLevel->AttachModel((H3DI::IMoveObject*)p,H3DI::LL_Actor);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Actors);
 
 	return p;
 }
@@ -161,23 +177,37 @@ H3DI::IActor* HippoScene::CreateActor(bool bmale)
 	p->Update(0);
 	m_IActorCon.push_back(p);
 
-	if(m_pLevel)
-		m_pLevel->AttachModel((H3DI::IMoveObject*)p,H3DI::LL_Actor);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Actors);
 
 	return p;
 }
 
 H3DI::IPrePassLight*		HippoScene::CreateDirLight()
 {
-	return 0;
+	H3DI::IRender* pRender=Hippo_GetIRender();
+	H3DI::IPrePassLight* p=pRender->CreatePrePassLight(H3DI::LIGHT_DIR);
+	m_DirCon.push_back(p);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Lights);
+	
+	return p;
 }
 H3DI::IPrePassLight*		HippoScene::CreateSpotLight()
 {
-	return 0;
+	H3DI::IRender* pRender=Hippo_GetIRender();
+	H3DI::IPrePassLight* p=pRender->CreatePrePassLight(H3DI::LIGHT_POINT);
+	m_PointCon.push_back(p);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Lights);
+	
+	return p;
 }
 H3DI::IPrePassLight*		HippoScene::CreatePointLight()
 {
-	return 0;
+	H3DI::IRender* pRender=Hippo_GetIRender();
+	H3DI::IPrePassLight* p=pRender->CreatePrePassLight(H3DI::LIGHT_PROJECT);
+	m_SpotCon.push_back(p);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Lights);
+	
+	return p;
 }
 
 bool HippoScene::DelActor(H3DI::IActor* p)
@@ -186,12 +216,14 @@ bool HippoScene::DelActor(H3DI::IActor* p)
 }
 bool HippoScene::DelDml(H3DI::IModel* p)
 {
+	GetH3DScene()->AttachModel(p,H3DI::SL_DetailObj);
 	p->Release();
 	m_IModelCon.erase(std::find(m_IModelCon.begin(),m_IModelCon.end(),p));
 	return true;
 }
 bool HippoScene::DelSpe(ISpecialEffect* p)
 {
+	GetH3DScene()->AttachModel(p,H3DI::SL_SpecialEffect);
 	return true;
 }
 bool HippoScene::DelShader(H3DI::INewShader* p)
@@ -200,27 +232,46 @@ bool HippoScene::DelShader(H3DI::INewShader* p)
 }
 bool HippoScene::DelChr(H3DI::ISkeletonModel* p)
 {
+	GetH3DScene()->AttachModel(p,H3DI::SL_DetailObj);
 	return true;
 }
 bool HippoScene::DelPet(H3DI::IAvatarSkeletonModel* p)
 {
-	return true;
-}
-bool HippoScene::DelLight(H3DI::IPrePassLight* p)
-{
+	GetH3DScene()->AttachModel(p,H3DI::SL_Actors);
 	return true;
 }
 
-void HippoScene::PushSceneToRender(float timeMs)
+template<class Container,class Item>
+void DeleteItemFromVector(Container* pCon,Item* p)
 {
-	H3DI::IRender* pRender=Hippo_GetIRender();
-	if (m_pLevel)
-		pRender->PushLevel(m_pLevel);
-
+	Container::iterator itr=std::find(pCon->begin(),pCon->end(),p);
+	if(itr!=pCon->end())
+	{
+		pCon->erase(itr);
+	}
+}
+bool HippoScene::DelDirLight(H3DI::IPrePassLight* p)
+{
+	GetH3DScene()->AttachModel(p,H3DI::SL_Lights);
+	DeleteItemFromVector(&m_DirCon,p);
+	return true;
+}
+bool HippoScene::DelPointLight(H3DI::IPrePassLight* p)
+{
+	GetH3DScene()->AttachModel(p,H3DI::SL_Lights);
+	DeleteItemFromVector(&m_PointCon,p);
+	return true;
+}
+bool HippoScene::DelSpotLight(H3DI::IPrePassLight* p)
+{
+	GetH3DScene()->AttachModel(p,H3DI::SL_Lights);
+	DeleteItemFromVector(&m_SpotCon,p);
+	return true;
 }
 
 
-void HippoScene::UpdateScene(float escape)
+
+void HippoScene::Update(float escape)
 {
 	H3DI::IRender* pRender=Hippo_GetIRender();
 
@@ -269,17 +320,31 @@ void HippoScene::UpdateScene(float escape)
 		}
 	}
 	{
-		IPrePassLightConItr itr=m_IPrePassLightCon.begin();
-		while (itr!=m_IPrePassLightCon.end())
+		IPrePassLightConItr itr=m_DirCon.begin();
+		while (itr!=m_DirCon.end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Update(escape);
 			++itr;
 		}
 	}
-}
+	{
+		IPrePassLightConItr itr=m_PointCon.begin();
+		while (itr!=m_PointCon.end())
+		{
+			H3DI::IPrePassLight* plight=*itr;
+			plight->Update(escape);
+			++itr;
+		}
+	}
+	{
+		IPrePassLightConItr itr=m_SpotCon.begin();
+		while (itr!=m_SpotCon.end())
+		{
+			H3DI::IPrePassLight* plight=*itr;
+			plight->Update(escape);
+			++itr;
+		}
+	}
 
-bool HippoScene::LoadSceneFromFile(const char* xmlfile)
-{
-	return true;
 }
