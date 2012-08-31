@@ -158,6 +158,8 @@ int ModelViewCamera::AnalysisMouseInput(float fElapsedTime)
 {
 	Hippo_InputManager* pInput=GetInputManager();
 
+
+
 	if (pInput->IsMouseLButtonDown())
 	{
 		int iMouseX,iMouseY;
@@ -171,6 +173,13 @@ int ModelViewCamera::AnalysisMouseInput(float fElapsedTime)
 		}
 		else
 		{
+			//去掉一些干扰，例如，现在任务栏上点一下，然后移动到窗口内点击一下，此时会被认为拖拽
+			int detiMouseX,detiMouseY;
+			pInput->GetMouseLDragDelta(&detiMouseX,&detiMouseY);
+			if (detiMouseX==0 && detiMouseY==0)
+			{
+				return 1;
+			}
 			//如果用户在左键拖拽，那么计算鼠标球面坐标，和mouse down时的坐标计算一个旋转
 			//计算当前点的球面坐标
 			H3DVec3 sp=ConvertScreenPoint2SpherePoint(iMouseX,iMouseY);
@@ -183,14 +192,12 @@ int ModelViewCamera::AnalysisMouseInput(float fElapsedTime)
 			this_rot.Set(aix.x,aix.y,aix.z,dot);
 			this_rot.Normalize();
 
-			m_roation=m_tmp_roation*this_rot; //实际世界的旋转和单位球的旋转是相反的
-			
-			if(m_roation.Length()==0)
 			{
-				//如果初始化的时候，拖动console窗口，然后再让渲染窗口获得焦点，会出现m_roation= 0，0，0，0的情况
-				m_roation.Identity();
+				m_roation=m_tmp_roation*this_rot; //实际世界的旋转和单位球的旋转是相反的
+
+				m_roation.Normalize();
 			}
-			m_roation.Normalize();
+
 		}
 	}
 

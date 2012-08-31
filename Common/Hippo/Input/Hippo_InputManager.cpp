@@ -322,6 +322,7 @@ int Hippo_InputManager::OnMouseMove(HippoContexInfo* pStage,HWND hWnd, UINT uMsg
 		m_MouseLeftDragDeltaY=ptCurMousePos.y-m_LastLDrag_ScreenPosY;
 		m_LastLDrag_ScreenPosX=ptCurMousePos.x;
 		m_LastLDrag_ScreenPosY=ptCurMousePos.y;
+		Hippo_WriteConsole(CC_GREEN,"m_MouseLeftDragDeltaX=%d,m_MouseLeftDragDeltaY=%d",m_MouseLeftDragDeltaX,m_MouseLeftDragDeltaY);
 
 	}
 	else if (m_bRightDraging)
