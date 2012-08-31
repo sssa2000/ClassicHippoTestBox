@@ -65,7 +65,7 @@ public:
 	static HippoTestManager* GetInstance(); 
 
 	// 注册测试案例
-	HippoTestCaseBase* RegisterTestCase(HippoTestCaseBase* pCase);
+	HippoTestCaseBase* RegisterTestCase(const char* type,HippoTestCaseBase* pCase);
 
 	// 执行单元测试，在frame begin和end之间调用
 	int RunAllTest();
@@ -107,7 +107,7 @@ private: \
 
 
 
-#define ADD_TESTCASE(testcase_name)\
+#define ADD_TESTCASE(testcase_type,testcase_name)\
 	HippoTestCaseBase* const testcase_name \
 	::testcase_ = HippoTestManager::GetInstance()->RegisterTestCase( \
-	new testcase_name(#testcase_name));
+	(testcase_type),new testcase_name(#testcase_name));

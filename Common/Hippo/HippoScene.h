@@ -13,7 +13,7 @@
 #include <vector>
 #include <string>
 #include <map>
-
+#include "engine_interface.h"
 class CameraBase;
 namespace H3DI
 {
@@ -65,9 +65,9 @@ public:
 	H3DI::INewShader*			CreateShader(const char* fn,const char* matn);
 	H3DI::ISkeletonModel*		CreateChr(const char* fn);
 	H3DI::IAvatarSkeletonModel* CreatePet(bool bmale);
-	H3DI::IPrePassLight*		CreateDirLight();
-	H3DI::IPrePassLight*		CreateSpotLight();
-	H3DI::IPrePassLight*		CreatePointLight();
+
+	H3DI::IPrePassLight*		CreateLight(H3DI::LightAffectParam e,H3DI::LIGHT_TYPE t);
+	bool						DelLight(H3DI::IPrePassLight* p);
 
 
 	void CleanScene();
@@ -79,10 +79,7 @@ public:
 	bool DelPet(H3DI::IAvatarSkeletonModel* p);
 	bool DelTerrain(H3DI::ITerrain* p);
 
-	bool DelDirLight(H3DI::IPrePassLight* p);
-	bool DelPointLight(H3DI::IPrePassLight* p);
-	bool DelSpotLight(H3DI::IPrePassLight* p);
-	
+
 	virtual void Update(float escape);
 	virtual H3DI::IScene* GetH3DScene()=0;
 protected:
@@ -95,11 +92,12 @@ protected:
 	ISkeletonModelCon m_ISkeletonModelCon;
 	IAvatarSkeletonModelCon m_IAvatarSkeletonModelCon;
 
-	IPrePassLightCon m_DirCon;
-	IPrePassLightCon m_PointCon;
-	IPrePassLightCon m_SpotCon;
-
-
+	IPrePassLightCon* GetLightCon(H3DI::IPrePassLight* p);
+	
+	//¹âÈÝÆ÷
+	IPrePassLightCon m_DirCon[H3DI::LIGHTAFFECTPARAM_END];
+	IPrePassLightCon m_PointCon[H3DI::LIGHTAFFECTPARAM_END];
+	IPrePassLightCon m_SpotCon[H3DI::LIGHTAFFECTPARAM_END];
 
 private:
 };

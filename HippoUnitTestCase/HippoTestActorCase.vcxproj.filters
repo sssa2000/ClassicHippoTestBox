@@ -151,6 +151,9 @@
     <ClCompile Include="..\Common\Hippo\HippoSceneManager.cpp">
       <Filter>HIPPO\Scene</Filter>
     </ClCompile>
+    <ClCompile Include="ActorLightProHTest.cpp">
+      <Filter>TestApp</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Hippo\EngineBox.h">

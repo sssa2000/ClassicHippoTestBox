@@ -113,4 +113,4 @@ private:
 	static HippoTestCaseBase* const testcase_;
 };
 
-//ADD_TESTCASE(DmlTest1)
+ADD_TESTCASE("DML_TEST",DmlTest1)

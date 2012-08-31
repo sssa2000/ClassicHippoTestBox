@@ -130,6 +130,7 @@
     <ClCompile Include="..\Common\Hippo\camera\ModelViewCamera.cpp" />
     <ClCompile Include="..\Common\Hippo\Input\Hippo_InputManager.cpp" />
     <ClCompile Include="..\Common\Hippo\RefCountCompare.cpp" />
+    <ClCompile Include="ActorLightProHTest.cpp" />
     <ClCompile Include="DmlTest1.cpp" />
     <ClCompile Include="EmptyTerrainTest.cpp" />
     <ClCompile Include="LoadTerrainTest.cpp" />

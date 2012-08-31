@@ -2,6 +2,35 @@
 #include "HippoFrameWork.h"
 #include <iostream>
 
+//只执行某一个测试用例，如果不需要请保持该变量为空
+const char* ONLY_EXEC_A_TEST="ActorLightProjHTest";
+
+//只执行某一个类型的测试用例，如果不需要请保持该变量为空
+const char* ONLY_EXEC_TYPE="";
+
+
+//返回true表示可以添加
+//返回false表示不能添加该用例
+bool _filter(const char* type,HippoTestCaseBase* pCase)
+{
+	if(ONLY_EXEC_A_TEST && strlen(ONLY_EXEC_A_TEST)>0)
+	{
+		if(strcmp(ONLY_EXEC_A_TEST,pCase->GetTestCaseName())==0)
+			return true;
+		return false;
+	}
+
+	if(ONLY_EXEC_TYPE && strlen(ONLY_EXEC_TYPE)>0)
+	{
+		if(strcmp(ONLY_EXEC_TYPE,type)==0)
+			return true;
+		return false;
+	}
+
+	return true;
+}
+
+
 HippoTestManager::HippoTestManager()
 {
 	m_pCurrentTestCase=0;
@@ -29,8 +58,15 @@ HippoTestManager* HippoTestManager::GetInstance()
 }
 
 // 注册测试案例
-HippoTestCaseBase* HippoTestManager::RegisterTestCase(HippoTestCaseBase* pCase)
+HippoTestCaseBase* HippoTestManager::RegisterTestCase(const char* type,HippoTestCaseBase* pCase)
 {
+	//如果不能满足条件，删除
+	if(!_filter(type,pCase))
+	{
+		delete pCase;
+		return 0;
+	}
+
 	m_all_testcase.push_back(pCase);
 	return pCase;
 }

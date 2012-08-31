@@ -63,35 +63,38 @@ void HippoScene::CleanScene()
 		}
 		m_ISpecialEffectCon.clear();
 	}
+	for(int i=0;i<H3DI::LIGHTAFFECTPARAM_END;++i)
 	{
-		IPrePassLightConItr itr=m_DirCon.begin();
-		while (itr!=m_DirCon.end())
+		IPrePassLightConItr itr=m_DirCon[i].begin();
+		while (itr!=m_DirCon[i].end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Release();
 			++itr;
 		}
-		m_DirCon.clear();
+		m_DirCon[i].clear();
 	}
+	for(int i=0;i<H3DI::LIGHTAFFECTPARAM_END;++i)
 	{
-		IPrePassLightConItr itr=m_PointCon.begin();
-		while (itr!=m_PointCon.end())
+		IPrePassLightConItr itr=m_PointCon[i].begin();
+		while (itr!=m_PointCon[i].end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Release();
 			++itr;
 		}
-		m_PointCon.clear();
+		m_PointCon[i].clear();
 	}
+	for(int i=0;i<H3DI::LIGHTAFFECTPARAM_END;++i)
 	{
-		IPrePassLightConItr itr=m_SpotCon.begin();
-		while (itr!=m_SpotCon.end())
+		IPrePassLightConItr itr=m_SpotCon[i].begin();
+		while (itr!=m_SpotCon[i].end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Release();
 			++itr;
 		}
-		m_SpotCon.clear();
+		m_SpotCon[i].clear();
 	}
 
 	H3DI::IRender* pRender=Hippo_GetIRender();
@@ -181,34 +184,16 @@ H3DI::IActor* HippoScene::CreateActor(bool bmale)
 
 	return p;
 }
+H3DI::IPrePassLight* HippoScene::CreateLight(H3DI::LightAffectParam e,H3DI::LIGHT_TYPE t)
+{
+	H3DI::IRender* pRender=Hippo_GetIRender();
+	H3DI::IPrePassLight* p=pRender->CreatePrePassLight(t);
+	p->SetLightAffectParam(e);
+	GetLightCon(p)->push_back(p);
+	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Lights);
+	return p;
+}
 
-H3DI::IPrePassLight*		HippoScene::CreateDirLight()
-{
-	H3DI::IRender* pRender=Hippo_GetIRender();
-	H3DI::IPrePassLight* p=pRender->CreatePrePassLight(H3DI::LIGHT_DIR);
-	m_DirCon.push_back(p);
-	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Lights);
-	
-	return p;
-}
-H3DI::IPrePassLight*		HippoScene::CreateSpotLight()
-{
-	H3DI::IRender* pRender=Hippo_GetIRender();
-	H3DI::IPrePassLight* p=pRender->CreatePrePassLight(H3DI::LIGHT_POINT);
-	m_PointCon.push_back(p);
-	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Lights);
-	
-	return p;
-}
-H3DI::IPrePassLight*		HippoScene::CreatePointLight()
-{
-	H3DI::IRender* pRender=Hippo_GetIRender();
-	H3DI::IPrePassLight* p=pRender->CreatePrePassLight(H3DI::LIGHT_PROJECT);
-	m_SpotCon.push_back(p);
-	GetH3DScene()->AttachModel((H3DI::IMoveObject*)p,H3DI::SL_Lights);
-	
-	return p;
-}
 
 bool HippoScene::DelActor(H3DI::IActor* p)
 {
@@ -242,32 +227,39 @@ bool HippoScene::DelPet(H3DI::IAvatarSkeletonModel* p)
 }
 
 template<class Container,class Item>
-void DeleteItemFromVector(Container* pCon,Item* p)
+bool DeleteItemFromVector(Container* pCon,Item* p)
 {
 	Container::iterator itr=std::find(pCon->begin(),pCon->end(),p);
 	if(itr!=pCon->end())
 	{
 		pCon->erase(itr);
+		return true;
 	}
+	return false;
 }
-bool HippoScene::DelDirLight(H3DI::IPrePassLight* p)
+IPrePassLightCon* HippoScene::GetLightCon(H3DI::IPrePassLight* p)
 {
-	GetH3DScene()->AttachModel(p,H3DI::SL_Lights);
-	DeleteItemFromVector(&m_DirCon,p);
-	return true;
+	H3DI::LightAffectParam e=p->GetLightAffectParam();
+	H3DI::LIGHT_TYPE t=p->GetLightType();
+	if(t==H3DI::LIGHT_DIR)
+		return &m_DirCon[e];
+	else if(t==H3DI::LIGHT_POINT)
+		return &m_PointCon[e];
+	else if(t==H3DI::LIGHT_PROJECT)
+		return &m_SpotCon[e];
+
+	return 0;
 }
-bool HippoScene::DelPointLight(H3DI::IPrePassLight* p)
+
+
+
+
+bool HippoScene::DelLight(H3DI::IPrePassLight* p)
 {
-	GetH3DScene()->AttachModel(p,H3DI::SL_Lights);
-	DeleteItemFromVector(&m_PointCon,p);
-	return true;
+	GetH3DScene()->DetachModel(p);
+	return DeleteItemFromVector(GetLightCon(p),p);
 }
-bool HippoScene::DelSpotLight(H3DI::IPrePassLight* p)
-{
-	GetH3DScene()->AttachModel(p,H3DI::SL_Lights);
-	DeleteItemFromVector(&m_SpotCon,p);
-	return true;
-}
+
 
 
 
@@ -319,27 +311,32 @@ void HippoScene::Update(float escape)
 			++itr;
 		}
 	}
+	for(int i=0;i<H3DI::LIGHTAFFECTPARAM_END;++i)
 	{
-		IPrePassLightConItr itr=m_DirCon.begin();
-		while (itr!=m_DirCon.end())
+		IPrePassLightConItr itr=m_DirCon[i].begin();
+		while (itr!=m_DirCon[i].end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Update(escape);
 			++itr;
 		}
 	}
+
+	for(int i=0;i<H3DI::LIGHTAFFECTPARAM_END;++i)
 	{
-		IPrePassLightConItr itr=m_PointCon.begin();
-		while (itr!=m_PointCon.end())
+		IPrePassLightConItr itr=m_PointCon[i].begin();
+		while (itr!=m_PointCon[i].end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Update(escape);
 			++itr;
 		}
 	}
+
+	for(int i=0;i<H3DI::LIGHTAFFECTPARAM_END;++i)
 	{
-		IPrePassLightConItr itr=m_SpotCon.begin();
-		while (itr!=m_SpotCon.end())
+		IPrePassLightConItr itr=m_SpotCon[i].begin();
+		while (itr!=m_SpotCon[i].end())
 		{
 			H3DI::IPrePassLight* plight=*itr;
 			plight->Update(escape);
