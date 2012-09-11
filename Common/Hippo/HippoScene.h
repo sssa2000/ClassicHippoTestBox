@@ -59,15 +59,18 @@ public:
 	HippoScene();
 	virtual ~HippoScene();
 
-	H3DI::IActor*				CreateActor(bool bmale);
-	H3DI::IModel*				CreateDml(const char* fn);
-	ISpecialEffect*				CreateSpe(const char* fn);
-	H3DI::INewShader*			CreateShader(const char* fn,const char* matn);
-	H3DI::ISkeletonModel*		CreateChr(const char* fn);
-	H3DI::IAvatarSkeletonModel* CreatePet(bool bmale);
+	virtual H3DI::IActor*				CreateActor(bool bmale,int matlod=0);
+	virtual H3DI::IActor*				CreateActor_RandomBodyPart(bool bmale,int matlod=0);
+	virtual H3DI::IActor*				CreateActor_RandomAllDress(bool bmale,int matlod=0);
 
-	H3DI::IPrePassLight*		CreateLight(H3DI::LightAffectParam e,H3DI::LIGHT_TYPE t);
-	bool						DelLight(H3DI::IPrePassLight* p);
+	virtual H3DI::IModel*				CreateDml(const char* fn);
+	virtual ISpecialEffect*				CreateSpe(const char* fn);
+	virtual H3DI::INewShader*			CreateShader(const char* fn,const char* matn);
+	virtual H3DI::ISkeletonModel*		CreateChr(const char* fn);
+	virtual H3DI::IAvatarSkeletonModel* CreatePet(bool bmale,int matlod=0);
+
+	virtual H3DI::IPrePassLight*		CreateLight(H3DI::LightAffectParam e,H3DI::LIGHT_TYPE t);
+	virtual bool						DelLight(H3DI::IPrePassLight* p);
 
 
 	void CleanScene();
@@ -82,6 +85,8 @@ public:
 
 	virtual void Update(float escape);
 	virtual H3DI::IScene* GetH3DScene()=0;
+
+	virtual void RestructScene()=0;
 protected:
 	
 	//¸÷ÀàÈÝÆ÷
@@ -110,6 +115,7 @@ public:
 	~HippoLevelScene();
 	virtual void Update(float escape);
 	virtual H3DI::IScene* GetH3DScene();
+	virtual void RestructScene();
 private:
 	H3DI::ILevel* m_pLevel;
 };
@@ -123,6 +129,7 @@ public:
 	~HippoTerrainScene();
 	virtual void Update(float escape);
 	virtual H3DI::IScene* GetH3DScene();
+	virtual void RestructScene();
 private:
 	H3DI::ITerrain* m_pTerrain;
 };

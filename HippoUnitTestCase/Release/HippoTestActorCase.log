@@ -1,0 +1,118 @@
+﻿生成启动时间为 2012/9/11 18:05:09。
+     1>项目“E:\Git\ClassicHippoTestBox\HippoUnitTestCase\HippoTestActorCase.vcxproj”在节点 2 上(build 个目标)。
+     1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(299,5): warning MSB8004: Output 目录未以斜杠结尾。此生成实例将添加斜杠，因为必须有这个斜杠才能正确计算 Output 目录。
+     1>InitializeBuildStatus:
+         正在创建“Release\HippoTestActorCase.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\CL.exe /c /I../Common/Hippo /I../Common/Engine /I../Common/ /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDOWS /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt ManyActorTest.cpp
+         ManyActorTest.cpp
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(312): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(352): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(407): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(409): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(418): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(420): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(433): warning C4996: 'strcpy': This function or variable may be unsafe. Consider using strcpy_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\string.h(105) : 参见“strcpy”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(511): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(521): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(531): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(540): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(549): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>e:\git\classichippotestbox\common\hippo\idmath\str.h(558): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files\Microsoft Visual Studio 10.0\VC\include\stdio.h(371) : 参见“sprintf”的声明
+     1>ManyActorTest.cpp(119): warning C4244: “初始化”: 从“const int”转换到“float”，可能丢失数据
+     1>ManyActorTest.cpp(145): warning C4244: “初始化”: 从“const int”转换到“float”，可能丢失数据
+       ResourceCompile:
+         所有输出均为最新。
+     1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(990,5): warning MSB8012: TargetPath(D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor\HippoTestActorCase.exe) 与 Linker 的 OutputFile 属性值(D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor\HippoTestActorCaseR.exe)不匹配。这可能导致项目生成不正确。若要更正此问题，请确保 $(OutDir)、$(TargetName) 和 $(TargetExt) 属性值与 %(Link.OutputFile) 中指定的值匹配。
+     1>C:\Program Files\MSBuild\Microsoft.Cpp\v4.0\Microsoft.CppBuild.targets(992,5): warning MSB8012: TargetName(HippoTestActorCase) 与 Linker 的 OutputFile 属性值(HippoTestActorCaseR)不匹配。这可能导致项目生成不正确。若要更正此问题，请确保 $(OutDir)、$(TargetName) 和 $(TargetExt) 属性值与 %(Link.OutputFile) 中指定的值匹配。
+       Link:
+         C:\Program Files\Microsoft Visual Studio 10.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor\HippoTestActorCaseR.exe" /INCREMENTAL:NO /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Release\HippoTestActorCase.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor\HippoTestActorCase.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor\HippoTestActorCase.lib" /MACHINE:X86 Release\HIPPO_FrameWork.res
+         Release\ActorUtil.obj
+         Release\DressSelector.obj
+         Release\HippoTestMainFunction.obj
+         Release\HippoTestManager.obj
+         Release\EngineBox.obj
+         Release\ErrReport.obj
+         Release\HelpeDraw.obj
+         Release\HippoFrameWork.obj
+         Release\HippoLevelScene.obj
+         Release\HippoScene.obj
+         Release\HippoSceneManager.obj
+         Release\HippoTerrainScene.obj
+         Release\Angles.obj
+         Release\IDLIB.obj
+         Release\Math.obj
+         Release\Matrix.obj
+         Release\Quat.obj
+         Release\Rotation.obj
+         Release\Vector.obj
+         Release\ArcBall.obj
+         Release\CameraControlMap.obj
+         Release\FPSCamera.obj
+         Release\ModelViewCamera.obj
+         Release\Hippo_InputManager.obj
+         Release\RefCountCompare.obj
+         Release\Decompose.obj
+         Release\DrawVert.obj
+         Release\JointTransform.obj
+         Release\Heap.obj
+         Release\Angles.obj
+         Release\cpuid.obj
+         Release\IDLIB.obj
+         Release\Math.obj
+         Release\Matrix.obj
+         Release\Plane.obj
+         Release\Quat.obj
+         Release\Rotation.obj
+         Release\Simd.obj
+         Release\Simd_3DNow.obj
+         Release\Simd_Generic.obj
+         Release\Simd_MMX.obj
+         Release\Simd_SSE.obj
+         Release\Simd_SSE2.obj
+         Release\Simd_SSE3.obj
+         Release\Vector.obj
+         Release\Str.obj
+         Release\tinystr.obj
+         Release\tinyxml.obj
+         Release\tinyxmlerror.obj
+         Release\tinyxmlparser.obj
+         Release\ActorChangeDressTest.obj
+         Release\ActorLightProHTest.obj
+         Release\DmlTest1.obj
+         Release\EmptyTerrainTest.obj
+         Release\LoadTerrainTest.obj
+         Release\ManyActorTest.obj
+     1>Release\Angles.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+     1>Release\IDLIB.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+     1>Release\Math.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+     1>Release\Matrix.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+     1>Release\Quat.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+     1>Release\Rotation.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+     1>Release\Vector.obj : warning LNK4042: 对象被多次指定；已忽略多余的指定
+         正在生成代码
+         已完成代码的生成
+         HippoTestActorCase.vcxproj -> D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor\HippoTestActorCase.exe
+       Manifest:
+         C:\Program Files\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /outputresource:"D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor\HippoTestActorCaseR.exe;#1" /manifest Release\HippoTestActorCase.exe.intermediate.manifest
+       FinalizeBuildStatus:
+         正在删除文件“Release\HippoTestActorCase.unsuccessfulbuild”。
+         正在对“Release\HippoTestActorCase.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“E:\Git\ClassicHippoTestBox\HippoUnitTestCase\HippoTestActorCase.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:23.68

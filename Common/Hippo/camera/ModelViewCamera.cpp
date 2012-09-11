@@ -14,6 +14,15 @@ ModelViewCamera::ModelViewCamera()
 	m_BeginRoatePoint.Set(0,0,0);
 	m_roation.Identity();
 	m_tmp_roation.Identity();
+
+	m_Pos.Set(0,0,0);
+	m_ViewAtDir.Set(0,0,0);
+	m_UpDir.Set(0,0,1);
+
+	m_fDragTimer=0;
+	m_vVelocityDrag.Set(0,0,0);
+	m_vVelocity.Set(0,0,0);
+
 	UpdateCameraCoord();
 }
 
@@ -120,7 +129,7 @@ int ModelViewCamera::AnalysisKeyInput(float fElapsedTime)
 	if( pInput->IsKeyDown(Camera_ControlMap::GetFPSCameraKeyCodeFromLogicKey(CAM_MOVE_UP) ))
 	{
 		tmpV.z += 0.02f;
-		Hippo_WriteConsole(CC_WHITE,"ModelView Camera Z+1\n");
+		//Hippo_WriteConsole(CC_WHITE,"ModelView Camera Z+1\n");
 	}
 	if( pInput->IsKeyDown(Camera_ControlMap::GetFPSCameraKeyCodeFromLogicKey(CAM_MOVE_DOWN) ))
 	{
@@ -173,24 +182,32 @@ int ModelViewCamera::AnalysisMouseInput(float fElapsedTime)
 		}
 		else
 		{
-			//去掉一些干扰，例如，现在任务栏上点一下，然后移动到窗口内点击一下，此时会被认为拖拽
-			int detiMouseX,detiMouseY;
-			pInput->GetMouseLDragDelta(&detiMouseX,&detiMouseY);
-			if (detiMouseX==0 && detiMouseY==0)
-			{
-				return 1;
-			}
+// 			//去掉一些干扰，例如，现在任务栏上点一下，然后移动到窗口内点击一下，此时会被认为拖拽
+// 			int detiMouseX,detiMouseY;
+// 			pInput->GetMouseLDragDelta(&detiMouseX,&detiMouseY);
+// 			if (detiMouseX==0 && detiMouseY==0)
+// 			{
+// 				return 1;
+// 			}
 			//如果用户在左键拖拽，那么计算鼠标球面坐标，和mouse down时的坐标计算一个旋转
 			//计算当前点的球面坐标
 			H3DVec3 sp=ConvertScreenPoint2SpherePoint(iMouseX,iMouseY);
 
 			//计算当前点到上次记录的点的旋转
 			H3DQuat this_rot;
+			this_rot.Set(0,0,0,1);
 
 			H3DVec3 aix=sp.Cross(m_BeginRoatePoint);
 			float dot=m_BeginRoatePoint.Dot(sp);
 			this_rot.Set(aix.x,aix.y,aix.z,dot);
 			this_rot.Normalize();
+
+			if(this_rot.Length()==0)
+			{
+				int a=0;
+				++a;
+			}
+
 
 			{
 				m_roation=m_tmp_roation*this_rot; //实际世界的旋转和单位球的旋转是相反的

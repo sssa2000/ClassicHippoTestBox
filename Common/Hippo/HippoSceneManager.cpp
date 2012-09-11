@@ -41,8 +41,9 @@ void HippoSceneManager::UpdateScene(float timeMs)
 	SceneConItr itrend=m_scenes.end();
 	while (itr!=itrend)
 	{
-		H3DI::IScene* p=(*itr)->GetH3DScene();
-		p->Update(timeMs);
+		(*itr)->Update(timeMs);
+		//H3DI::IScene* p=(*itr)->GetH3DScene();
+		//p->Update(timeMs);
 		++itr;
 	}
 }

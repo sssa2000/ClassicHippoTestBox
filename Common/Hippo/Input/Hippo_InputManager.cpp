@@ -147,6 +147,15 @@ int Hippo_InputManager::ProcessMouseMsg(HippoContexInfo* pStage,HWND hWnd, UINT 
 	case WM_MOUSEMOVE:
 		res=OnMouseMove(pStage,hWnd,uMsg,wParam,lParam);
 		break;
+	case WM_CAPTURECHANGED:
+		if( ( HWND )lParam != hWnd )
+		{
+			//Hippo_WriteConsole(CC_RED,"WM_CAPTURECHANGED");
+			ReleaseCapture();
+			m_bLeftDraging=false;
+			m_bRightDraging=false;
+		}
+		break;
 	default:
 		res=0;
 	}
@@ -212,6 +221,8 @@ bool Hippo_InputManager::IsRightKeyDraging()
 
 int Hippo_InputManager::OnMouseLeftKeyDown(HippoContexInfo* pStage,HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 {
+	//Hippo_WriteConsole(CC_RED,"L Button Down");
+	SetCapture(hWnd);
 	m_bMouseLButtonDown=true;
 
 	//记录鼠标左键按下的位置（窗口坐标系下）
@@ -254,6 +265,7 @@ int Hippo_InputManager::OnMouseLeftKeyUp(HippoContexInfo* pStage,HWND hWnd, UINT
 }
 int Hippo_InputManager::OnMouseRightKeyDown(HippoContexInfo* pStage,HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 {
+	SetCapture(hWnd);
 	m_bMouseRButtonDown=true;
 	m_MousePosX_Wnd=( int )LOWORD( lParam );
 	m_MousePosY_Wnd=( int )HIWORD( lParam );
@@ -262,6 +274,7 @@ int Hippo_InputManager::OnMouseRightKeyDown(HippoContexInfo* pStage,HWND hWnd, U
 }
 int Hippo_InputManager::OnMouseRightKeyUp(HippoContexInfo* pStage,HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 {
+	ReleaseCapture();
 	m_bMouseRButtonDown=false;
 	m_MousePosX_Wnd=( int )LOWORD( lParam );
 	m_MousePosY_Wnd=( int )HIWORD( lParam );
@@ -278,6 +291,7 @@ int Hippo_InputManager::OnMouseMiddleKeyDown(HippoContexInfo* pStage,HWND hWnd, 
 }
 int Hippo_InputManager::OnMouseMiddleKeyUp(HippoContexInfo* pStage,HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 {
+	ReleaseCapture();
 	m_bMouseMButtonDown=false;
 	m_MousePosX_Wnd=( int )LOWORD( lParam );
 	m_MousePosY_Wnd=( int )HIWORD( lParam );
@@ -305,12 +319,13 @@ int Hippo_InputManager::OnMouseWheel(HippoContexInfo* pStage,HWND hWnd, UINT uMs
 int Hippo_InputManager::OnMouseMove(HippoContexInfo* pStage,HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam )
 {
 	//记录拖拽
-	m_bLeftDraging=m_bMouseLButtonDown;
-	m_bRightDraging=m_bMouseRButtonDown;
+	m_bLeftDraging=(wParam & MK_LBUTTON)==1;
+	m_bRightDraging=(wParam & MK_RBUTTON)==1;;
 
 	m_MousePosX_Wnd=( int )LOWORD( lParam );
 	m_MousePosY_Wnd=( int )HIWORD( lParam );
 
+	//Hippo_WriteConsole(CC_RED,"OnMouseMove,LeftDrag=%d,RightDrag=%d",m_bLeftDraging,m_bRightDraging);
 
 	//处理左键拖拽和右键拖拽
 	if (m_bLeftDraging)
@@ -322,7 +337,11 @@ int Hippo_InputManager::OnMouseMove(HippoContexInfo* pStage,HWND hWnd, UINT uMsg
 		m_MouseLeftDragDeltaY=ptCurMousePos.y-m_LastLDrag_ScreenPosY;
 		m_LastLDrag_ScreenPosX=ptCurMousePos.x;
 		m_LastLDrag_ScreenPosY=ptCurMousePos.y;
-		Hippo_WriteConsole(CC_GREEN,"m_MouseLeftDragDeltaX=%d,m_MouseLeftDragDeltaY=%d",m_MouseLeftDragDeltaX,m_MouseLeftDragDeltaY);
+
+		if(m_MouseLeftDragDeltaX==0 && m_MouseLeftDragDeltaY==0)
+			m_bLeftDraging=false;
+
+		//Hippo_WriteConsole(CC_GREEN,"m_MouseLeftDragDeltaX=%d,m_MouseLeftDragDeltaY=%d",m_MouseLeftDragDeltaX,m_MouseLeftDragDeltaY);
 
 	}
 	else if (m_bRightDraging)

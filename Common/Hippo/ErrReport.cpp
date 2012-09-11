@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <Windows.h>
 
-void ReportErrWithLastErr(unsigned int dwError)
+void HippoReportErrWithLastErr(unsigned int dwError)
 {
 	if (dwError!=0) //0 means there is no err
 	{
@@ -25,7 +25,7 @@ void ReportErrWithLastErr(unsigned int dwError)
 }
 
 
-void ReportErrWithLastErr(unsigned int dwError,const char* szString,...)
+void HippoReportErrWithLastErr(unsigned int dwError,const char* szString,...)
 {
 	if (dwError!=0) //0 means there is no err
 	{
@@ -53,7 +53,7 @@ void ReportErrWithLastErr(unsigned int dwError,const char* szString,...)
 	}
 }
 
-void ReportErr(const char* szString,...)
+void HippoReportErr(const char* szString,...)
 {
 	static char buff[1024];
 	va_list va;

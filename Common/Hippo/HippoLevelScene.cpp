@@ -24,3 +24,8 @@ H3DI::IScene* HippoLevelScene::GetH3DScene()
 {
 	return (H3DI::IScene*)m_pLevel;
 }
+
+void HippoLevelScene::RestructScene()
+{
+	m_pLevel->RestructScene();
+}

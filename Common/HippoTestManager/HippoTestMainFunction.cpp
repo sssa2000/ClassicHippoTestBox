@@ -82,6 +82,7 @@ void Update(float escape)
 
 int OnFrameUpdate(DWORD fElapsedTimeInMs, void* pUserContext )
 {
+
 	HippoTestManager::GetInstance()->RunAllTest();
 
 	H3DI::IRender* pRender=Hippo_GetIRender();
@@ -99,7 +100,7 @@ int OnFrameUpdate(DWORD fElapsedTimeInMs, void* pUserContext )
 
 	pRender->Render();
 
-	Hippo_DrawHelpGrid();
+	//Hippo_DrawHelpGrid();
 	pRender->FrameEnd();
 	pRender->SwapBuffer();
 

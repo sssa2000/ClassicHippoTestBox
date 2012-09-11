@@ -11,6 +11,6 @@
 *********************************************************************/
 #pragma once
 
-void ReportErrWithLastErr(unsigned int dwError);
-void ReportErrWithLastErr(unsigned int dwError,const char* str,...);
-void ReportErr(const char* str,...);
+void HippoReportErrWithLastErr(unsigned int dwError);
+void HippoReportErrWithLastErr(unsigned int dwError,const char* str,...);
+void HippoReportErr(const char* str,...);

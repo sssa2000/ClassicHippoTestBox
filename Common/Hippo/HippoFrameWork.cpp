@@ -77,7 +77,7 @@ int Hippo_CreateWindow(const char* wnd_title,HMENU hMenu,HINSTANCE hInstance,int
 	if( !RegisterClass( &wndClass ) )
 	{
 		DWORD dwError = GetLastError();
-		ReportErrWithLastErr(dwError);
+		HippoReportErrWithLastErr(dwError);
 		return -1;
 	}
 
@@ -97,7 +97,7 @@ int Hippo_CreateWindow(const char* wnd_title,HMENU hMenu,HINSTANCE hInstance,int
 	if( hWnd == NULL )
 	{
 		DWORD dwError = GetLastError();
-		ReportErrWithLastErr(dwError);
+		HippoReportErrWithLastErr(dwError);
 		return -1;
 	}
 	g_hippo_state->m_hwnd=hWnd;

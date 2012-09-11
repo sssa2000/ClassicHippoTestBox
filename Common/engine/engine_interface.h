@@ -1850,7 +1850,9 @@ namespace H3DI
 	enum EPetAdornmentPosition
 	{
 		PET_ADORNMENT_BACK = 0,		// 0 背部
-		PET_ADOENMENT_ANKLETS,		// 1 脚链
+		PET_ADORNMENT_ANKLETS,		// 1 脚链
+		PET_ADORNMENT_LEFTHAND,		// 2 左手
+		PET_ADORNMENT_RIGHTHAND,	// 3 右手
 
 		PET_ADORNMENT_NUM,
 	};
@@ -4111,6 +4113,8 @@ namespace H3DI
 		// 获取当前资源使用情况
 		virtual void GetResourceUsageInfo(ResourceUsageInfo* pInfo) = 0;
 
+		//打印字符串到屏幕指定位置(该接口仅供引擎内部使用)
+		virtual void PrintTextToScreen(const char* str,int screenX,int screenY,int r,int g,int b)=0;
 	};
 
 

@@ -37,7 +37,7 @@ int EngineBox::Init(HWND hwnd,unsigned int width,unsigned int height)
 	if (!m_dll)
 	{
 		DWORD err=GetLastError();
-		ReportErrWithLastErr(err,"Load Library Failed!:s",dllname.c_str());
+		HippoReportErrWithLastErr(err,"Load Library Failed!:s",dllname.c_str());
 		return -1;
 	}
 
@@ -46,14 +46,14 @@ int EngineBox::Init(HWND hwnd,unsigned int width,unsigned int height)
 	if (!CreateRendererDX || !DeleteRendererDX)
 	{
 		DWORD err=GetLastError();
-		ReportErrWithLastErr(err,"GetProcAddress!:%s",dllname.c_str());
+		HippoReportErrWithLastErr(err,"GetProcAddress!:%s",dllname.c_str());
 		return -1;
 	}
 
 	m_pRenderer = CreateRendererDX();
 	if (!m_pRenderer)
 	{
-		ReportErr("Create IRender 失败");
+		HippoReportErr("Create IRender 失败");
 		return -1;
 	} 
 
@@ -70,7 +70,7 @@ int EngineBox::Init(HWND hwnd,unsigned int width,unsigned int height)
 	int res = m_pRenderer->CreateRenderWindow(info);
 	if (res<0)
 	{
-		ReportErr("无法创建渲染窗口！");
+		HippoReportErr("无法创建渲染窗口！");
 		return -1;
 	}
 

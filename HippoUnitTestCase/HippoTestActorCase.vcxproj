@@ -37,11 +37,11 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
     <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">G:\Project_H_MT\editor</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</LinkIncremental>
     <EmbedManifest Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</EmbedManifest>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\alienbrainWork\ab\engine-X52\branches\multi_thread\editor\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">D:\alienbrainWork\QQX5-2_MT\QQX5-2_Exe\editor</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(Configuration)\</IntDir>
     <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
     <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
@@ -93,6 +93,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Common\ActorUtil.cpp" />
+    <ClCompile Include="..\Common\DressSelector.cpp" />
     <ClCompile Include="..\Common\HippoTestManager\HippoTestMainFunction.cpp" />
     <ClCompile Include="..\Common\HippoTestManager\HippoTestManager.cpp" />
     <ClCompile Include="..\Common\Hippo\EngineBox.cpp" />
@@ -104,25 +106,11 @@
     <ClCompile Include="..\Common\Hippo\HippoSceneManager.cpp" />
     <ClCompile Include="..\Common\Hippo\HippoTerrainScene.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Angles.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\cpuid.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\Decompose.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\geometry\DrawVert.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\Heap.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\IDLIB.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\geometry\JointTransform.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Math.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Matrix.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Plane.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Quat.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Rotation.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_3DNow.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_Generic.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_MMX.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_SSE.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_SSE2.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_SSE3.cpp" />
-    <ClCompile Include="..\Common\Hippo\idMath\Str.cpp" />
     <ClCompile Include="..\Common\Hippo\idMath\math\Vector.cpp" />
     <ClCompile Include="..\Common\Hippo\camera\ArcBall.cpp" />
     <ClCompile Include="..\Common\Hippo\camera\CameraControlMap.cpp" />
@@ -130,12 +118,41 @@
     <ClCompile Include="..\Common\Hippo\camera\ModelViewCamera.cpp" />
     <ClCompile Include="..\Common\Hippo\Input\Hippo_InputManager.cpp" />
     <ClCompile Include="..\Common\Hippo\RefCountCompare.cpp" />
+    <ClCompile Include="..\Common\idMath\Decompose.cpp" />
+    <ClCompile Include="..\Common\idMath\geometry\DrawVert.cpp" />
+    <ClCompile Include="..\Common\idMath\geometry\JointTransform.cpp" />
+    <ClCompile Include="..\Common\idMath\Heap.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Angles.cpp" />
+    <ClCompile Include="..\Common\idMath\math\cpuid.cpp" />
+    <ClCompile Include="..\Common\idMath\math\IDLIB.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Math.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Matrix.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Plane.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Quat.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Rotation.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Simd.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Simd_3DNow.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Simd_Generic.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Simd_MMX.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Simd_SSE.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Simd_SSE2.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Simd_SSE3.cpp" />
+    <ClCompile Include="..\Common\idMath\math\Vector.cpp" />
+    <ClCompile Include="..\Common\idMath\Str.cpp" />
+    <ClCompile Include="..\Common\xml\tinystr.cpp" />
+    <ClCompile Include="..\Common\xml\tinyxml.cpp" />
+    <ClCompile Include="..\Common\xml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\Common\xml\tinyxmlparser.cpp" />
+    <ClCompile Include="ActorChangeDressTest.cpp" />
     <ClCompile Include="ActorLightProHTest.cpp" />
     <ClCompile Include="DmlTest1.cpp" />
     <ClCompile Include="EmptyTerrainTest.cpp" />
     <ClCompile Include="LoadTerrainTest.cpp" />
+    <ClCompile Include="ManyActorTest.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\ActorUtil.h" />
+    <ClInclude Include="..\Common\DressSelector.h" />
     <ClInclude Include="..\Common\HippoTestManager\HippoTestManager.h" />
     <ClInclude Include="..\Common\Hippo\EngineBox.h" />
     <ClInclude Include="..\Common\Hippo\ErrReport.h" />
@@ -146,28 +163,13 @@
     <ClInclude Include="..\Common\Hippo\RefCountCompare.h" />
     <ClInclude Include="..\Common\Hippo\Resource.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Angles.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\containers\BTree.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\cpuid.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\Decompose.h" />
     <ClInclude Include="..\Common\Hippo\idMath\dMathHeader.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\geometry\DrawVert.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\Heap.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\IDLIB.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\geometry\JointTransform.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Math.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\matrix.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Plane.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Quat.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Random.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Rotation.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_3DNow.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_Generic.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_MMX.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_SSE.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_SSE2.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_SSE3.h" />
-    <ClInclude Include="..\Common\Hippo\idMath\Str.h" />
     <ClInclude Include="..\Common\Hippo\idMath\math\Vector.h" />
     <ClInclude Include="..\Common\Hippo\camera\ArcBall.h" />
     <ClInclude Include="..\Common\Hippo\camera\CameraBase.h" />
@@ -177,6 +179,31 @@
     <ClInclude Include="..\Common\Hippo\Input\Hippo_InputManager.h" />
     <ClInclude Include="..\Common\engine\EffectCore_dx.h" />
     <ClInclude Include="..\Common\engine\engine_interface.h" />
+    <ClInclude Include="..\Common\idMath\Decompose.h" />
+    <ClInclude Include="..\Common\idMath\dMathHeader.h" />
+    <ClInclude Include="..\Common\idMath\geometry\DrawVert.h" />
+    <ClInclude Include="..\Common\idMath\geometry\JointTransform.h" />
+    <ClInclude Include="..\Common\idMath\Heap.h" />
+    <ClInclude Include="..\Common\idMath\math\Angles.h" />
+    <ClInclude Include="..\Common\idMath\math\cpuid.h" />
+    <ClInclude Include="..\Common\idMath\math\IDLIB.h" />
+    <ClInclude Include="..\Common\idMath\math\Math.h" />
+    <ClInclude Include="..\Common\idMath\math\matrix.h" />
+    <ClInclude Include="..\Common\idMath\math\Plane.h" />
+    <ClInclude Include="..\Common\idMath\math\Quat.h" />
+    <ClInclude Include="..\Common\idMath\math\Random.h" />
+    <ClInclude Include="..\Common\idMath\math\Rotation.h" />
+    <ClInclude Include="..\Common\idMath\math\Simd.h" />
+    <ClInclude Include="..\Common\idMath\math\Simd_3DNow.h" />
+    <ClInclude Include="..\Common\idMath\math\Simd_Generic.h" />
+    <ClInclude Include="..\Common\idMath\math\Simd_MMX.h" />
+    <ClInclude Include="..\Common\idMath\math\Simd_SSE.h" />
+    <ClInclude Include="..\Common\idMath\math\Simd_SSE2.h" />
+    <ClInclude Include="..\Common\idMath\math\Simd_SSE3.h" />
+    <ClInclude Include="..\Common\idMath\math\Vector.h" />
+    <ClInclude Include="..\Common\idMath\Str.h" />
+    <ClInclude Include="..\Common\xml\tinystr.h" />
+    <ClInclude Include="..\Common\xml\tinyxml.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\Common\Hippo\HIPPO_FrameWork.ico" />

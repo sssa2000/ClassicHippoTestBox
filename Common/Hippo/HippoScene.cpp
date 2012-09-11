@@ -3,6 +3,7 @@
 #include "idMath/dMathHeader.h"
 #include "EffectCore_dx.h"
 #include "HippoFrameWork.h"
+#include "ActorUtil.h"
 #include <algorithm>
 HippoScene::HippoScene()
 {
@@ -155,12 +156,12 @@ std::string MakeAutoName(const char* prefix)
 	return res;
 }
 
-H3DI::IAvatarSkeletonModel* HippoScene::CreatePet(bool bmale)
+H3DI::IAvatarSkeletonModel* HippoScene::CreatePet(bool bmale,int matlod)
 {
 	std::string n=MakeAutoName("pet");
 	H3DI::IRender* pRender=Hippo_GetIRender();
 	H3DI::sCreateOp op;
-	op.mat_lod=0;
+	op.mat_lod=matlod;
 	H3DI::IAvatarSkeletonModel* p=(H3DI::IAvatarSkeletonModel*)pRender->CreateAvatarSkeletonModel(op,n.c_str(),bmale);
 	p->Update(0);
 	m_IAvatarSkeletonModelCon.push_back(p);
@@ -170,12 +171,12 @@ H3DI::IAvatarSkeletonModel* HippoScene::CreatePet(bool bmale)
 	return p;
 }
 
-H3DI::IActor* HippoScene::CreateActor(bool bmale)
+H3DI::IActor* HippoScene::CreateActor(bool bmale,int matlod)
 {
 	std::string n=MakeAutoName("ac");
 	H3DI::IRender* pRender=Hippo_GetIRender();
 	H3DI::sCreateOp op;
-	op.mat_lod=0;
+	op.mat_lod=matlod;
 	H3DI::IActor* p=(H3DI::IActor*)pRender->CreateActor(op,n.c_str(),bmale);
 	p->Update(0);
 	m_IActorCon.push_back(p);
@@ -184,6 +185,23 @@ H3DI::IActor* HippoScene::CreateActor(bool bmale)
 
 	return p;
 }
+
+H3DI::IActor* HippoScene::CreateActor_RandomBodyPart(bool bmale,int matlod)
+{
+	H3DI::IActor* p=CreateActor(bmale,matlod);
+	ActorUtil::RandomBodypart(p,bmale);
+	return p;
+}
+
+H3DI::IActor* HippoScene::CreateActor_RandomAllDress(bool bmale,int matlod)
+{
+	H3DI::IActor* p=CreateActor(bmale,matlod);
+	ActorUtil::RandomBodypart(p,bmale);
+	ActorUtil::RandomLink(p,bmale);
+	return p;
+}
+
+
 H3DI::IPrePassLight* HippoScene::CreateLight(H3DI::LightAffectParam e,H3DI::LIGHT_TYPE t)
 {
 	H3DI::IRender* pRender=Hippo_GetIRender();

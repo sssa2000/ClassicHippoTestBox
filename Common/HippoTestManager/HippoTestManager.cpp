@@ -3,7 +3,7 @@
 #include <iostream>
 
 //只执行某一个测试用例，如果不需要请保持该变量为空
-const char* ONLY_EXEC_A_TEST="LoadTerrainTest";
+const char* ONLY_EXEC_A_TEST="ManyActorTest";
 
 //只执行某一个类型的测试用例，如果不需要请保持该变量为空
 const char* ONLY_EXEC_TYPE="";

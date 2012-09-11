@@ -51,3 +51,7 @@ H3DI::IScene* HippoTerrainScene::GetH3DScene()
 {
 	return (H3DI::IScene*)m_pTerrain;
 }
+void HippoTerrainScene::RestructScene()
+{
+	m_pTerrain->RestructScene();
+}

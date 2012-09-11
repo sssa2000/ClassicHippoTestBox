@@ -29,6 +29,9 @@
     <Filter Include="HIPPO\Util">
       <UniqueIdentifier>{0742d41b-1d27-4a54-9b6e-af5ebd8920ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HIPPO\xml">
+      <UniqueIdentifier>{24aa5510-a820-4655-a83d-24fcdfb3e9e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Common\Hippo\EngineBox.cpp">
@@ -46,22 +49,7 @@
     <ClCompile Include="..\Common\Hippo\idMath\math\Angles.cpp">
       <Filter>HIPPO\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\cpuid.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\Decompose.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\geometry\DrawVert.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\Heap.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\Common\Hippo\idMath\math\IDLIB.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\geometry\JointTransform.cpp">
       <Filter>HIPPO\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\Hippo\idMath\math\Math.cpp">
@@ -70,37 +58,10 @@
     <ClCompile Include="..\Common\Hippo\idMath\math\Matrix.cpp">
       <Filter>HIPPO\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Plane.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\Common\Hippo\idMath\math\Quat.cpp">
       <Filter>HIPPO\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\Hippo\idMath\math\Rotation.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_3DNow.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_Generic.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_MMX.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_SSE.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_SSE2.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\math\Simd_SSE3.cpp">
-      <Filter>HIPPO\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Common\Hippo\idMath\Str.cpp">
       <Filter>HIPPO\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\Common\Hippo\idMath\math\Vector.cpp">
@@ -154,6 +115,93 @@
     <ClCompile Include="ActorLightProHTest.cpp">
       <Filter>TestApp</Filter>
     </ClCompile>
+    <ClCompile Include="ManyActorTest.cpp">
+      <Filter>TestApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\xml\tinystr.cpp">
+      <Filter>HIPPO\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\xml\tinyxml.cpp">
+      <Filter>HIPPO\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\xml\tinyxmlerror.cpp">
+      <Filter>HIPPO\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\xml\tinyxmlparser.cpp">
+      <Filter>HIPPO\xml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\DressSelector.cpp">
+      <Filter>HIPPO\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\ActorUtil.cpp">
+      <Filter>HIPPO\Util</Filter>
+    </ClCompile>
+    <ClCompile Include="ActorChangeDressTest.cpp">
+      <Filter>TestApp</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\Decompose.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\Heap.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\Str.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Angles.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\cpuid.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\IDLIB.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Math.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Matrix.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Plane.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Quat.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Rotation.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Simd.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Simd_3DNow.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Simd_Generic.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Simd_MMX.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Simd_SSE.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Simd_SSE2.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Simd_SSE3.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\math\Vector.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\geometry\DrawVert.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Common\idMath\geometry\JointTransform.cpp">
+      <Filter>HIPPO\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Hippo\EngineBox.h">
@@ -177,37 +225,16 @@
     <ClInclude Include="..\Common\Hippo\idMath\math\Angles.h">
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\containers\BTree.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\cpuid.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\Decompose.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\Common\Hippo\idMath\dMathHeader.h">
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\geometry\DrawVert.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\Heap.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\Common\Hippo\idMath\math\IDLIB.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\geometry\JointTransform.h">
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\idMath\math\Math.h">
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\idMath\math\matrix.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Plane.h">
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\idMath\math\Quat.h">
@@ -217,30 +244,6 @@
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\idMath\math\Rotation.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_3DNow.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_Generic.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_MMX.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_SSE.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_SSE2.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\math\Simd_SSE3.h">
-      <Filter>HIPPO\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Common\Hippo\idMath\Str.h">
       <Filter>HIPPO\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\idMath\math\Vector.h">
@@ -278,6 +281,87 @@
     </ClInclude>
     <ClInclude Include="..\Common\Hippo\RefCountCompare.h">
       <Filter>HIPPO\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\xml\tinystr.h">
+      <Filter>HIPPO\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\xml\tinyxml.h">
+      <Filter>HIPPO\xml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\DressSelector.h">
+      <Filter>HIPPO\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\ActorUtil.h">
+      <Filter>HIPPO\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\Decompose.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\dMathHeader.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\Heap.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\Str.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Angles.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\cpuid.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\IDLIB.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Math.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\matrix.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Plane.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Quat.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Random.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Rotation.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Simd.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Simd_3DNow.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Simd_Generic.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Simd_MMX.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Simd_SSE.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Simd_SSE2.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Simd_SSE3.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\math\Vector.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\geometry\DrawVert.h">
+      <Filter>HIPPO\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\idMath\geometry\JointTransform.h">
+      <Filter>HIPPO\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

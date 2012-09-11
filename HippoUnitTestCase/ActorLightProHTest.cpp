@@ -34,18 +34,19 @@ public:
 	virtual bool InitScene()
 	{
 		//m_pTerrainScene=Hippo_GetSceneManager()->LoadTerrainFromFile("../resources/art/scene/scene/terrain01");
-		m_pTerrainScene=(HippoScene*)Hippo_GetSceneManager()->CreateEmptyLevel();
-		H3DI::IPrePassLight* plight=m_pTerrainScene->CreateLight(H3DI::AFFECT_SCENE_ONLY,H3DI::LIGHT_DIR);
-		float c[4]={1,1,1,1};
-		plight->SetColor(c);
-		plight->SetDirection(H3DVec3(1,1,1));
+
+ 		m_pTerrainScene=(HippoScene*)Hippo_GetSceneManager()->CreateEmptyLevel();
+// 		H3DI::IPrePassLight* plight=m_pTerrainScene->CreateLight(H3DI::AFFECT_SCENE_ONLY,H3DI::LIGHT_DIR);
+// 		float c[4]={1,1,1,1};
+// 		plight->SetColor(c);
+// 		plight->SetDirection(H3DVec3(1,1,1));
 
 
 		//create actor
 		Hippo_GetIRender()->OpenActionLib("../resources/art/role/actions/role.xml");
 		m_pActor=m_pTerrainScene->CreateActor(false);
 
-
+		m_pTerrainScene->RestructScene();
 		m_state=CASE_EXECING;
 		return true;
 	}
